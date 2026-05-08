@@ -14,7 +14,7 @@ document.getElementById("googleLogin").addEventListener("click", async () => {
 
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
-    options: { redirectTo: window.location.origin + "/index.html" }
+    options: { redirectTo: "https://bsbinfoweb-arch.github.io/Parenteze/index.html"" }
   });
 
   if(error) msg.textContent = error.message;
