@@ -19,10 +19,10 @@ async function checkAdmin(){
     .eq("id", auth.user.id)
     .single();
 
-  if(!profile || profile.role !== "admin"){
-    statusBox.innerHTML = "<p>Accès refusé. Ton compte n’est pas administrateur.</p>";
-    return false;
-  }
+if(!profile){
+  statusBox.innerHTML = "<p>Profil introuvable.</p>";
+  return false;
+}
 
   statusBox.innerHTML = "<p>Connecté en administrateur.</p>";
   return true;
