@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Connexion - Parents Market 971</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script defer src="js/auth.js"></script>
+</head>
+<body class="page">
+  <main class="auth-card">
+    <h1>Connexion</h1>
+    <p>Connecte-toi avec Google ou avec ton email.</p>
+    <button class="btn btn-primary full" id="googleLogin">Continuer avec Google</button>
+    <hr>
+    <input id="email" type="email" placeholder="Adresse email">
+    <input id="password" type="password" placeholder="Mot de passe">
+    <label class="check"><input type="checkbox" id="rgpd"> J’accepte la politique de confidentialité</label>
+    <button class="btn btn-outline full" id="emailSignup">Créer mon compte</button>
+    <button class="btn btn-primary full" id="emailLogin">Me connecter</button>
+    <p id="authMessage"></p>
+    <a href="index.html">Retour accueil</a>
+  </main>
+</body>
+</html>

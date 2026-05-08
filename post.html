@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Déposer une annonce - Parents Market 971</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script defer src="js/post.js"></script>
+</head>
+<body class="page">
+  <main class="form-card">
+    <h1>Déposer une annonce</h1>
+    <p>Ton annonce sera validée avant publication.</p>
+    <input id="title" placeholder="Titre de l’annonce">
+    <textarea id="description" placeholder="Description"></textarea>
+    <input id="price" type="number" placeholder="Prix, laisser vide si gratuit">
+    <select id="annonceType">
+      <option value="sell">À vendre</option>
+      <option value="donate">À donner</option>
+      <option value="search">Je recherche</option>
+    </select>
+    <select id="category"></select>
+    <input id="commune" placeholder="Commune">
+    <input id="etablissement" placeholder="Établissement">
+    <input id="photo" type="file" accept="image/*">
+    <button class="btn btn-primary full" id="submitAd">Envoyer pour validation</button>
+    <p id="postMessage"></p>
+    <a href="index.html">Retour accueil</a>
+  </main>
+</body>
+</html>
