@@ -10,7 +10,7 @@ async function loadDashboard(){
   // =====================
 
   const { data: ads, error } = await supabaseClient
-    .from("ads")
+    .from("annonces")
     .select("*")
     .order("created_at", { ascending:false });
 
