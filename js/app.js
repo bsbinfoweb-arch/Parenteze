@@ -60,7 +60,7 @@ async function loadAds(){
           <p>${a.etablissement || ""}</p>
           <div class="price">${price}</div>
         </div>
-      </article>
+      </a>
     `;
   }).join("");
 }
