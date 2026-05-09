@@ -572,7 +572,12 @@ hr{
 
   .btn{
     padding:13px 15px;
-    .footer-links{
+  }
+}
+
+/* FOOTER LINKS */
+
+.footer-links{
   display:flex;
   gap:14px;
   margin-top:16px;
