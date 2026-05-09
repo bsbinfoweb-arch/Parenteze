@@ -52,7 +52,7 @@ async function loadAds(){
     const label = type === "donate" ? "A DONNER" : type === "search" ? "JE RECHERCHE" : "A VENDRE";
     const price = a.price_label || (a.price ? `${a.price} €` : "Gratuit");
     return `
-      <article class="ad">
+      <a href="annonce.html?id=${a.id}" class="ad">
         <div class="ad-img">${a.photo_url ? `<img src="${a.photo_url}" alt="" style="width:100%;height:100%;object-fit:cover">` : (a.emoji || "📦")}</div>
         <div class="ad-body">
           <span class="tag ${type}">${label}</span>
