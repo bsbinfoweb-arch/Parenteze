@@ -13,7 +13,28 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);background:#fff}
 a{text-decoration:none;color:inherit}
-.header{height:104px;display:flex;align-items:center;justify-content:space-between;padding:0 70px;background:#fff;border-bottom:1px solid #edf0ee;position:sticky;top:0;z-index:10}
+.header{
+  height:104px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 70px;
+  background:#fff;
+  border-bottom:1px solid #edf0ee;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+  .header{
+    position:relative;
+    padding:0 18px;
+    height:auto;
+    min-height:80px;
+  }
+}
 .brand{display:flex;gap:14px;align-items:center}
 .logo{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:36px;background:#e9f8ed}
 .brand strong{font-size:25px;color:var(--green);line-height:1}
