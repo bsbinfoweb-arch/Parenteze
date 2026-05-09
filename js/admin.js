@@ -54,5 +54,28 @@ async function loadDashboard(){
   });
 
 }
+async function approveAd(id){
+
+  await supabaseClient
+    .from("annonces")
+    .update({
+      status:"approved"
+    })
+    .eq("id", id);
+
+  loadDashboard();
+}
+
+async function rejectAd(id){
+
+  await supabaseClient
+    .from("annonces")
+    .update({
+      status:"rejected"
+    })
+    .eq("id", id);
+
+  loadDashboard();
+}
 
 loadDashboard();
