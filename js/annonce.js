@@ -103,7 +103,16 @@ async function loadAnnonce(){
         </h1>
 
         <div class="detail-price">
-          ${annonce.price_label || ""}
+        
+          <div class="detail-date">
+
+  🕒 Publié le
+  ${
+    new Date(annonce.created_at)
+      .toLocaleDateString("fr-FR")
+  }
+
+</div>
         </div>
 
         <div class="detail-meta">
