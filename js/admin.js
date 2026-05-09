@@ -3,248 +3,145 @@ const supabaseClient = supabase.createClient(
   window.APP_CONFIG.SUPABASE_ANON_KEY
 );
 
+async function updateAnnonceStatus(id, status){
+
+  const { error } = await supabaseClient
+    .from("annonces")
+    .update({ status })
+    .eq("id", id);
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  loadDashboard();
+}
+
 async function loadDashboard(){
 
-  const { data, error } = await supabaseClient
+  const { count: annoncesCount } = await supabaseClient
     .from("annonces")
-    .select("*");
+    .select("*", { count:"exact", head:true });
+
+  const { count: pendingCount } = await supabaseClient
+    .from("annonces")
+    .select("*", { count:"exact", head:true })
+    .eq("status", "pending");
+
+  const { count: usersCount } = await supabaseClient
+    .from("profiles")
+    .select("*", { count:"exact", head:true });
+
+  document.getElementById("stats").innerHTML = `
+  
+    <div class="stat-card">
+      <div class="stat-icon">📦</div>
+      <div>
+        <h3>${annoncesCount || 0}</h3>
+        <p>Annonces</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon orange">⏳</div>
+      <div>
+        <h3>${pendingCount || 0}</h3>
+        <p>En attente</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon blue">👨‍👩‍👧</div>
+      <div>
+        <h3>${usersCount || 0}</h3>
+        <p>Parents inscrits</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon red">🏫</div>
+      <div>
+        <h3>12</h3>
+        <p>Établissements</p>
+      </div>
+    </div>
+  `;
+
+  const { data: annonces, error } = await supabaseClient
+    .from("annonces")
+    .select("*")
+    .order("created_at", { ascending:false })
+    .limit(10);
 
   if(error){
     console.error(error);
     return;
   }
 
-  console.log(data);
+  const container = document.getElementById("recentAds");
 
-  document.getElementById("statAds").textContent = data.length;
+  if(!annonces || annonces.length === 0){
 
-  const grid = document.getElementById("adminAds");
-
-  grid.innerHTML = "";
-
-  data.forEach(ad => {
-
-    let statusColor = "#666";
-
-    if(ad.status === "published"){
-      statusColor = "#159447";
-    }
-
-    if(ad.status === "pending"){
-      statusColor = "#ff9800";
-    }
-
-    if(ad.status === "rejected"){
-      statusColor = "#e53935";
-    }
-
-    grid.innerHTML += `
-
-      <div class="admin-ad">
-
-        ${
-          ad.photo_url
-          ?
-          `
-            <img
-              src="${ad.photo_url}"
-
-              style="
-                width:100%;
-                height:180px;
-                object-fit:cover;
-                border-radius:14px;
-                margin-bottom:14px;
-              "
-            >
-          `
-          :
-          ""
-        }
-
-        <h3>
-          ${ad.title || "Sans titre"}
-        </h3>
-
-        <p>
-          ${ad.description || ""}
-        </p>
-
-        <p>
-          <strong>Statut :</strong>
-
-          <span style="
-            color:${statusColor};
-            font-weight:700;
-          ">
-            ${ad.status || "pending"}
-          </span>
-        </p>
-
-        <div style="
-          display:flex;
-          gap:10px;
-          flex-wrap:wrap;
-          margin-top:14px;
-        ">
-
-          <button
-            onclick="publishAd('${ad.id}')"
-            class="btn btn-primary"
-          >
-            ✅ Publier
-          </button>
-
-          <button
-            onclick="rejectAd('${ad.id}')"
-            class="btn btn-outline"
-          >
-            ❌ Refuser
-          </button>
-
-        </div>
-
-      </div>
-
+    container.innerHTML = `
+      <p>Aucune annonce.</p>
     `;
-  });
-}
 
-  // =========================
-  // STATS
-  // =========================
-
-  document.getElementById("statAds").textContent = data.length;
-
-  // =========================
-  // GRID
-  // =========================
-
-  const grid = document.getElementById("adminAds");
-
-  grid.innerHTML = "";
-
-  data.forEach(ad => {
-
-    let statusColor = "#666";
-
-    if(ad.status === "published"){
-      statusColor = "#159447";
-    }
-
-    if(ad.status === "pending"){
-      statusColor = "#ff9800";
-    }
-
-    if(ad.status === "rejected"){
-      statusColor = "#e53935";
-    }
-
-    grid.innerHTML += `
-      <div class="admin-ad">
-
-        ${ad.photo_url ? `
-          <img 
-            src="${ad.photo_url}"
-
-            style="
-              width:100%;
-              height:180px;
-              object-fit:cover;
-              border-radius:14px;
-              margin-bottom:14px;
-            "
-          >
-        ` : ""}
-
-        <h3>
-          ${ad.title || "Sans titre"}
-        </h3>
-
-        <p>
-          ${ad.description || ""}
-        </p>
-
-        <p>
-          <strong>Statut :</strong>
-
-          <span style="
-            color:${statusColor};
-            font-weight:700;
-          ">
-            ${ad.status || "pending"}
-          </span>
-        </p>
-
-        <div style="
-          display:flex;
-          gap:10px;
-          flex-wrap:wrap;
-          margin-top:14px;
-        ">
-
-          <button
-            onclick="publishAd('${ad.id}')"
-            class="btn btn-primary"
-          >
-            ✅ Publier
-          </button>
-
-          <button
-            onclick="rejectAd('${ad.id}')"
-            class="btn btn-outline"
-          >
-            ❌ Refuser
-          </button>
-
-        </div>
-
-      </div>
-    `;
-  });
-
-}
-
-// =========================
-// PUBLISH
-// =========================
-
-async function publishAd(id){
-
-  const { error } = await supabaseClient
-    .from("annonces")
-    .update({
-      status:"published"
-    })
-    .eq("id", id);
-
-  if(error){
-    alert(error.message);
     return;
   }
 
-  loadDashboard();
-}
+  container.innerHTML = annonces.map(ad => `
+  
+    <div class="admin-ad">
 
-// =========================
-// REJECT
-// =========================
+      ${
+        ad.photo_url
+        ? `<img src="${ad.photo_url}" style="width:100%;height:180px;object-fit:cover;border-radius:14px;margin-bottom:14px;">`
+        : ``
+      }
 
-async function rejectAd(id){
+      <h3>${ad.title || "Sans titre"}</h3>
 
-  const { error } = await supabaseClient
-    .from("annonces")
-    .update({
-      status:"rejected"
-    })
-    .eq("id", id);
+      <p>${ad.description || ""}</p>
 
-  if(error){
-    alert(error.message);
-    return;
-  }
+      <p>
+        <strong>Statut :</strong>
+        <span style="
+          color:${
+            ad.status === "published"
+            ? "#159447"
+            : ad.status === "pending"
+            ? "#ff8a00"
+            : "#e5484d"
+          };
+          font-weight:700;
+        ">
+          ${ad.status || "pending"}
+        </span>
+      </p>
 
-  loadDashboard();
+      <div style="display:flex;gap:10px;margin-top:18px;">
+
+        <button
+          class="btn btn-primary"
+          onclick="updateAnnonceStatus(${ad.id}, 'published')"
+        >
+          ✅ Publier
+        </button>
+
+        <button
+          class="btn btn-outline"
+          onclick="updateAnnonceStatus(${ad.id}, 'refused')"
+        >
+          ❌ Refuser
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
 }
 
 loadDashboard();
+window.updateAnnonceStatus = updateAnnonceStatus;
