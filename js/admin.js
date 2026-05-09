@@ -133,7 +133,7 @@ async function loadDashboard(){
 
         <button
           class="btn btn-outline"
-          onclick="updateAnnonceStatus('${ad.id}', 'refused')"
+          onclick="updateAnnonceStatus('${ad.id}', 'rejected')"
         >
           ❌ Refuser
         </button>
