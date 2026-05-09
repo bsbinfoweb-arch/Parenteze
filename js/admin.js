@@ -133,7 +133,7 @@ const { data: annonces, error } = await supabaseClient
 
         <button
           class="btn btn-outline"
-          onclick="updateAnnonceStatus(${ad.id}, 'refused')"
+          onclick="updateAnnonceStatus('${ad.id}', 'refused')"
         >
           ❌ Refuser
         </button>
