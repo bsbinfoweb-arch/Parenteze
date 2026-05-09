@@ -126,7 +126,7 @@ const { data: annonces, error } = await supabaseClient
 
         <button
           class="btn btn-primary"
-          onclick="updateAnnonceStatus(${ad.id}, 'published')"
+          onclick="updateAnnonceStatus('${ad.id}', 'published')"
         >
           ✅ Publier
         </button>
