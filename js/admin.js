@@ -3,68 +3,57 @@ const supabaseClient = supabase.createClient(
   window.APP_CONFIG.SUPABASE_ANON_KEY
 );
 
-const statusBox = document.getElementById("adminStatus");
-const pendingBox = document.getElementById("pendingAds");
+async function loadDashboard(){
 
-async function checkAdmin(){
-  const { data: auth } = await supabaseClient.auth.getUser();
-  if(!auth.user){
-    window.location.href = "login.html";
-    return false;
-  }
+  // =====================
+  // CHARGER LES ANNONCES
+  // =====================
 
-  const { data: profile } = await supabaseClient
-    .from("profiles")
-    .select("role")
-    .eq("id", auth.user.id)
-    .single();
-
-if(!profile){
-  statusBox.innerHTML = "<p>Profil introuvable.</p>";
-  return false;
-}
-
-  statusBox.innerHTML = "<p>Connecté en administrateur.</p>";
-  return true;
-}
-
-async function loadPending(){
-  const ok = await checkAdmin();
-  if(!ok) return;
-
-  const { data, error } = await supabaseClient
-    .from("annonces")
+  const { data: ads, error } = await supabaseClient
+    .from("ads")
     .select("*")
-    .eq("status", "pending")
     .order("created_at", { ascending:false });
 
   if(error){
-    pendingBox.textContent = error.message;
+    console.error(error);
     return;
   }
 
-  if(!data.length){
-    pendingBox.innerHTML = "<p>Aucune annonce en attente.</p>";
-    return;
-  }
+  // =====================
+  // STATS
+  // =====================
 
-  pendingBox.innerHTML = data.map(a => `
-    <div class="admin-ad">
-      <h3>${a.title}</h3>
-      <p>${a.description || ""}</p>
-      <p><strong>${a.price_label || ""}</strong> — ${a.commune || ""} — ${a.etablissement || ""}</p>
-      ${a.photo_url ? `<img src="${a.photo_url}" style="max-width:220px;border-radius:10px">` : ""}
-      <br><br>
-      <button class="btn btn-primary" onclick="moderate('${a.id}','published')">Valider</button>
-      <button class="btn btn-outline" onclick="moderate('${a.id}','rejected')">Refuser</button>
-    </div>
-  `).join("");
+  document.getElementById("statAds").textContent = ads.length;
+
+  // =====================
+  // GRID ANNONCES
+  // =====================
+
+  const grid = document.getElementById("adminAds");
+
+  grid.innerHTML = "";
+
+  ads.forEach(ad => {
+
+    grid.innerHTML += `
+    
+      <div class="admin-ad">
+
+        <h3>${ad.title}</h3>
+
+        <p>
+          ${ad.description || ""}
+        </p>
+
+        <strong>
+          ${ad.price || 0} €
+        </strong>
+
+      </div>
+
+    `;
+  });
+
 }
 
-window.moderate = async function(id, status){
-  const { error } = await supabaseClient.from("annonces").update({ status }).eq("id", id);
-  if(error) alert(error.message);
-  await loadPending();
-}
-
-loadPending();
+loadDashboard();
