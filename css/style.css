@@ -33,9 +33,10 @@ a{text-decoration:none;color:inherit}
 }
 
 .logo img{
-  width:48px;
-  height:48px;
-  border-radius:14px;
+  width:58px;
+  height:58px;
+  object-fit:contain;
+  border-radius:18px;
 }
 
 .logo-text h1{
