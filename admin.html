@@ -1,22 +1,83 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <title>Back-office - Parents Market 971</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script src="js/config.js"></script>
-  <script defer src="js/admin.js"></script>
-</head>
-<body class="page admin-page">
-  <main class="admin-wrap">
-    <h1>Back-office</h1>
-    <p>Validation des annonces et administration simple.</p>
-    <div id="adminStatus"></div>
-    <section>
-      <h2>Annonces en attente</h2>
-      <div id="pendingAds"></div>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="active" href="#">📊 Dashboard</a>
+      <a href="#annonces-section">📦 Annonces</a>
+      <a href="#">🏫 Établissements</a>
+      <a href="#">📚 Catégories</a>
+      <a href="#">👨‍👩‍👧 Utilisateurs</a>
+      <a href="#">🚨 Signalements</a>
+      <a href="#">⚙️ Paramètres</a>
+    </nav>
+
+  </aside>
+
+  <main class="dashboard-content">
+
+    <div class="dashboard-header">
+      <div>
+        <h1>Dashboard Administrateur</h1>
+        <p>Bienvenue sur le panneau de gestion Parenteze.</p>
+      </div>
+
+      <div class="admin-user">
+        <span>🟢 Connecté en tant que administrateur</span>
+      </div>
+    </div>
+
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div>
+          <h3 id="statAds">0</h3>
+          <p>Annonces</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orange">⏳</div>
+        <div>
+          <h3 id="statPending">0</h3>
+          <p>En attente</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon blue">👨‍👩‍👧</div>
+        <div>
+          <h3 id="statUsers">0</h3>
+          <p>Parents inscrits</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon red">🏫</div>
+        <div>
+          <h3>12</h3>
+          <p>Établissements</p>
+        </div>
+      </div>
+
     </section>
+
+
+    <section id="annonces-section" class="dashboard-section">
+      <div class="section-title-row">
+        <h2>Annonces récentes</h2>
+        <button class="btn btn-primary">+ Nouvelle catégorie</button>
+      </div>
+
+      <div id="adminAds" class="admin-ads-grid"></div>
+    </section>
+
   </main>
+
+</div>
+
 </body>
 </html>
