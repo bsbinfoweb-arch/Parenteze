@@ -70,21 +70,23 @@ async function loadAnnonce(){
         </div>
 
       </div>
-<a
-  href="index.html"
 
-  style="
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:25px;
-    font-weight:800;
-    color:#159447;
-  "
->
-  ← Retour aux annonces
-</a>
       <div class="detail-content">
+
+        <a
+          href="index.html"
+
+          style="
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            margin-bottom:25px;
+            font-weight:800;
+            color:#159447;
+          "
+        >
+          ← Retour aux annonces
+        </a>
 
         <div class="detail-badge">
 
@@ -103,16 +105,17 @@ async function loadAnnonce(){
         </h1>
 
         <div class="detail-price">
-        
-          <div class="detail-date">
+          ${annonce.price_label || ""}
+        </div>
 
-  🕒 Publié le
-  ${
-    new Date(annonce.created_at)
-      .toLocaleDateString("fr-FR")
-  }
+        <div class="detail-date">
 
-</div>
+          🕒 Publié le
+          ${
+            new Date(annonce.created_at)
+              .toLocaleDateString("fr-FR")
+          }
+
         </div>
 
         <div class="detail-meta">
