@@ -16,6 +16,7 @@ async function updateAnnonceStatus(id, status){
   }
 
   loadDashboard();
+  window.location.reload();
 }
 
 async function loadDashboard(){
