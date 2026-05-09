@@ -9,11 +9,8 @@ async function loadDashboard(){
     .from("annonces")
     .select("*");
 
-  console.log("ANNONCES :", data);
-  console.log("ERROR :", error);
-
   if(error){
-    alert(error.message);
+    console.error(error);
     return;
   }
 
@@ -27,8 +24,13 @@ async function loadDashboard(){
 
     grid.innerHTML += `
       <div class="admin-ad">
+
         <h3>${ad.title || "Sans titre"}</h3>
-        <p>${ad.description || ""}</p>
+
+        <p>
+          ${ad.description || ""}
+        </p>
+
       </div>
     `;
   });
