@@ -22,16 +22,34 @@ async function loadDashboard(){
 
   data.forEach(ad => {
 
-    grid.innerHTML += `
-      <div class="admin-ad">
+   grid.innerHTML += `
+  <div class="admin-ad">
 
-        <h3>${ad.title || "Sans titre"}</h3>
+    <h3>${ad.title || "Sans titre"}</h3>
 
-        <p>
-          ${ad.description || ""}
-        </p>
+    <p>
+      ${ad.description || ""}
+    </p>
 
-      </div>
+    <br>
+
+    <strong>
+      Statut :
+      ${ad.status || "pending"}
+    </strong>
+
+    <br><br>
+
+    <button onclick="approveAd('${ad.id}')" class="btn btn-primary">
+      ✅ Approuver
+    </button>
+
+    <button onclick="rejectAd('${ad.id}')" class="btn btn-outline">
+      ❌ Refuser
+    </button>
+
+  </div>
+`;
     `;
   });
 
