@@ -5,10 +5,18 @@ const supabaseClient = supabase.createClient(
 
 async function updateAnnonceStatus(id, status){
 
-  const { error } = await supabaseClient
+async function updateAnnonceStatus(id, status){
+
+  console.log("UPDATE", id, status);
+
+  const { data, error } = await supabaseClient
     .from("annonces")
-    .update({ status })
-    .eq("id", id);
+    .update({ status: status })
+    .eq("id", id)
+    .select();
+
+  console.log(data);
+  console.log(error);
 
   if(error){
     alert(error.message);
@@ -16,7 +24,6 @@ async function updateAnnonceStatus(id, status){
   }
 
   loadDashboard();
-  window.location.reload();
 }
 
 async function loadDashboard(){
