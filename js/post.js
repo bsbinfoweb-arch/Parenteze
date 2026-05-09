@@ -48,13 +48,53 @@ async function loadCategories(){
 // UPLOAD PHOTO
 // =========================
 
-async function uploadPhoto(userId){
+async function uploadPhotos(userId){
 
-  const file = document.getElementById("photo").files[0];
+  const files =
+    document.getElementById("photos").files;
 
-  if(!file){
-    return null;
+  if(!files.length){
+    return [];
   }
+
+  if(files.length > 2){
+
+    alert("Maximum 2 photos");
+
+    return [];
+  }
+
+  const urls = [];
+
+  for(const file of files){
+
+    const ext = file.name.split(".").pop();
+
+    const path =
+      `${userId}/${Date.now()}-${Math.random()}.${ext}`;
+
+    const { error } = await supabaseClient
+      .storage
+      .from("annonce-photos")
+      .upload(path, file);
+
+    if(error){
+
+      console.error(error);
+
+      continue;
+    }
+
+    const { data } = supabaseClient
+      .storage
+      .from("annonce-photos")
+      .getPublicUrl(path);
+
+    urls.push(data.publicUrl);
+  }
+
+  return urls;
+}
 
   const ext = file.name.split(".").pop();
 
