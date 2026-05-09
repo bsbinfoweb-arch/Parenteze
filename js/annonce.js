@@ -33,6 +33,20 @@ async function loadAnnonce(){
     return;
   }
 
+  // =========================
+  // RELATED ADS
+  // =========================
+
+  const { data: relatedAds } = await supabaseClient
+    .from("annonces")
+    .select("*")
+    .eq("status", "published")
+    .eq("etablissement", annonce.etablissement)
+    .neq("id", annonce.id)
+    .limit(4);
+
+  // =========================
+
   document.getElementById("annonceDetail").innerHTML = `
 
     <div class="marketplace-detail">
@@ -145,6 +159,65 @@ async function loadAnnonce(){
       </div>
 
     </div>
+
+    <section class="related-section">
+
+      <h2>
+        📚 Autres annonces pour
+        ${annonce.etablissement}
+      </h2>
+
+      <div class="related-grid">
+
+        ${
+          relatedAds && relatedAds.length
+
+          ?
+
+          relatedAds.map(ad => `
+
+            <a
+              href="annonce.html?id=${ad.id}"
+
+              class="related-card"
+            >
+
+              <img
+                src="${
+                  ad.photo_url || ""
+                }"
+
+                class="related-image"
+              >
+
+              <div class="related-body">
+
+                <h3>
+                  ${ad.title}
+                </h3>
+
+                <p>
+                  ${ad.price_label || ""}
+                </p>
+
+              </div>
+
+            </a>
+
+          `).join("")
+
+          :
+
+          `
+            <p>
+              Aucune autre annonce pour cet établissement.
+            </p>
+          `
+        }
+
+      </div>
+
+    </section>
 
   `;
 }
