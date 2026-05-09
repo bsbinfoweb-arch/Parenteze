@@ -139,7 +139,8 @@ document
       return;
     }
 
-    const photoUrl = await uploadPhoto(user.id);
+   const photoUrls =
+  await uploadPhotos(user.id);
 
     const title =
       document.getElementById("title").value.trim();
