@@ -45,7 +45,7 @@ async function loadCategories(){
 }
 
 // =========================
-// UPLOAD PHOTO
+// UPLOAD PHOTOS
 // =========================
 
 async function uploadPhotos(userId){
@@ -82,6 +82,9 @@ async function uploadPhotos(userId){
 
       console.error(error);
 
+      msg.textContent =
+        "Erreur photo : " + error.message;
+
       continue;
     }
 
@@ -94,33 +97,6 @@ async function uploadPhotos(userId){
   }
 
   return urls;
-}
-
-  const ext = file.name.split(".").pop();
-
-  const path = `${userId}/${Date.now()}.${ext}`;
-
-  const { error } = await supabaseClient
-    .storage
-    .from("annonce-photos")
-    .upload(path, file);
-
-  if(error){
-
-    console.error(error);
-
-    msg.textContent =
-      "Erreur photo : " + error.message;
-
-    return null;
-  }
-
-  const { data } = supabaseClient
-    .storage
-    .from("annonce-photos")
-    .getPublicUrl(path);
-
-  return data.publicUrl;
 }
 
 // =========================
@@ -139,8 +115,8 @@ document
       return;
     }
 
-   const photoUrls =
-  await uploadPhotos(user.id);
+    const photoUrls =
+      await uploadPhotos(user.id);
 
     const title =
       document.getElementById("title").value.trim();
@@ -204,7 +180,9 @@ document
             .trim(),
 
         photo_urls: photoUrls,
-photo_url: photoUrls[0] || null,
+
+        photo_url:
+          photoUrls[0] || null,
 
         status: "pending"
       });
@@ -222,14 +200,14 @@ photo_url: photoUrls[0] || null,
     msg.textContent =
       "Annonce envoyée avec succès. Elle sera visible après validation.";
 
-    // RESET FORM
+    // RESET
 
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
     document.getElementById("price").value = "";
     document.getElementById("commune").value = "";
     document.getElementById("etablissement").value = "";
-    document.getElementById("photo").value = "";
+    document.getElementById("photos").value = "";
 
   });
 
