@@ -572,5 +572,29 @@ hr{
 
   .btn{
     padding:13px 15px;
+    .footer-links{
+  display:flex;
+  gap:14px;
+  margin-top:16px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,0.78);
+  font-size:13px;
+  font-weight:500;
+  transition:0.2s;
+}
+
+.footer-links a:hover{
+  color:#fff;
+}
+
+.footer-links a:not(:last-child)::after{
+  content:"•";
+  margin-left:14px;
+  opacity:0.5;
+}
   }
 }
