@@ -11,69 +11,68 @@ async function loadDashboard(){
 
   if(error){
     console.error(error);
+    alert(error.message);
     return;
   }
 
   document.getElementById("statAds").textContent = data.length;
 
   const grid = document.getElementById("adminAds");
-
   grid.innerHTML = "";
 
   data.forEach(ad => {
+    grid.innerHTML += `
+      <div class="admin-ad">
 
-   grid.innerHTML += `
-  <div class="admin-ad">
+        ${ad.photo_url ? `
+          <img src="${ad.photo_url}" style="width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+        ` : ""}
 
-    <h3>${ad.title || "Sans titre"}</h3>
+        <h3>${ad.title || "Sans titre"}</h3>
 
-    <p>
-      ${ad.description || ""}
-    </p>
+        <p>${ad.description || ""}</p>
 
-    <br>
+        <p><strong>Statut :</strong> ${ad.status || "pending"}</p>
 
-    <strong>
-      Statut :
-      ${ad.status || "pending"}
-    </strong>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+          <button onclick="publishAd('${ad.id}')" class="btn btn-primary">
+            ✅ Publier
+          </button>
 
-    <br><br>
+          <button onclick="rejectAd('${ad.id}')" class="btn btn-outline">
+            ❌ Refuser
+          </button>
+        </div>
 
-    <button onclick="approveAd('${ad.id}')" class="btn btn-primary">
-      ✅ Approuver
-    </button>
-
-    <button onclick="rejectAd('${ad.id}')" class="btn btn-outline">
-      ❌ Refuser
-    </button>
-
-  </div>
-`;
+      </div>
     `;
   });
-
 }
-async function approveAd(id){
 
-  await supabaseClient
+async function publishAd(id){
+  const { error } = await supabaseClient
     .from("annonces")
-    .update({
-      status:"approved"
-    })
+    .update({ status:"published" })
     .eq("id", id);
+
+  if(error){
+    alert(error.message);
+    return;
+  }
 
   loadDashboard();
 }
 
 async function rejectAd(id){
-
-  await supabaseClient
+  const { error } = await supabaseClient
     .from("annonces")
-    .update({
-      status:"rejected"
-    })
+    .update({ status:"rejected" })
     .eq("id", id);
+
+  if(error){
+    alert(error.message);
+    return;
+  }
 
   loadDashboard();
 }
