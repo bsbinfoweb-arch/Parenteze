@@ -164,7 +164,21 @@ nav{order:3;width:100%;overflow:auto;gap:18px}
 }
 
 .hero-image{
-  width:100%;
   max-width:560px;
   object-fit:contain;
+}
+.hero-visual{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.hero-image{
+  width:100%;
+  max-width:520px;
+  height:auto;
+  object-fit:contain;
+  display:block;
 }
