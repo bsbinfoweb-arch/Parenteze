@@ -203,7 +203,8 @@ document
             .value
             .trim(),
 
-        photo_url: photoUrl,
+        photo_urls: photoUrls,
+photo_url: photoUrls[0] || null,
 
         status: "pending"
       });
