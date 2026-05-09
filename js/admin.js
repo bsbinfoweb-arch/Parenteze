@@ -68,11 +68,12 @@ async function loadDashboard(){
     </div>
   `;
 
-  const { data: annonces, error } = await supabaseClient
-    .from("annonces")
-    .select("*")
-    .order("created_at", { ascending:false })
-    .limit(10);
+const { data: annonces, error } = await supabaseClient
+  .from("annonces")
+  .select("*")
+  .eq("status", "pending")
+  .order("created_at", { ascending:false })
+  .limit(10);
 
   if(error){
     console.error(error);
