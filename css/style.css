@@ -809,109 +809,128 @@ hr{
   }
 }
 /* =========================
-   MARKETPLACE DETAIL
+   MARKETPLACE DETAIL V2
 ========================= */
 
 .marketplace-detail{
-  max-width:1200px;
-  margin:auto;
+  max-width:1180px;
+  margin:40px auto;
   display:grid;
-  grid-template-columns:1.1fr 1fr;
-  gap:50px;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:42px;
   align-items:start;
+  padding:0 20px;
 }
 
 .gallery{
   position:sticky;
-  top:110px;
+  top:95px;
 }
 
 .main-photo{
   width:100%;
-  height:520px;
+  height:460px;
   object-fit:cover;
-  border-radius:28px;
+  border-radius:24px;
   background:#f3f3f3;
-  box-shadow:0 20px 40px rgba(0,0,0,.08);
+  box-shadow:0 12px 28px rgba(0,0,0,.06);
 }
 
 .thumbs{
   display:flex;
-  gap:14px;
-  margin-top:18px;
+  gap:10px;
+  margin-top:14px;
   overflow:auto;
 }
 
 .thumb{
-  width:95px;
-  height:95px;
+  width:78px;
+  height:78px;
   object-fit:cover;
-  border-radius:18px;
+  border-radius:14px;
   cursor:pointer;
-  border:3px solid transparent;
-  transition:.2s;
+  border:2px solid transparent;
+  transition:.18s;
   flex-shrink:0;
+  opacity:.92;
 }
 
 .thumb:hover{
   border-color:#159447;
-  transform:translateY(-2px);
+  opacity:1;
+}
+
+.detail-content{
+  padding-top:8px;
 }
 
 .detail-content h1{
-  font-size:48px;
-  line-height:1.05;
-  margin:10px 0 18px;
+  font-size:26px;
+  line-height:1.2;
+  margin:14px 0 10px;
+  font-weight:800;
+  letter-spacing:-0.5px;
 }
 
 .detail-price{
-  font-size:38px;
-  font-weight:900;
+  font-size:20px;
+  font-weight:800;
   color:#159447;
-  margin-bottom:25px;
+  margin-bottom:8px;
+}
+
+.detail-date{
+  color:#7a8191;
+  font-size:13px;
+  margin-bottom:22px;
 }
 
 .detail-badge{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   background:#eef8f1;
   color:#159447;
-  font-weight:800;
-  padding:10px 16px;
+  font-weight:700;
+  padding:8px 14px;
   border-radius:999px;
-  font-size:14px;
+  font-size:12px;
 }
 
 .detail-meta{
   display:flex;
   flex-wrap:wrap;
-  gap:12px;
-  margin-bottom:28px;
+  gap:10px;
+  margin-bottom:22px;
 }
 
 .meta-pill{
   background:#fff;
   border:1px solid #e7ece9;
-  border-radius:14px;
-  padding:12px 16px;
+  border-radius:12px;
+  padding:10px 14px;
   font-weight:700;
+  font-size:13px;
 }
 
 .detail-description{
-  font-size:18px;
-  line-height:1.9;
-  color:#354052;
+  font-size:15px;
+  line-height:1.8;
+  color:#465063;
 }
 
 .detail-contact{
-  margin-top:35px;
-  padding:18px 26px;
-  font-size:17px;
+  margin-top:26px;
+  padding:14px 18px;
+  font-size:15px;
+  border-radius:14px;
 }
 
 @media(max-width:980px){
 
   .marketplace-detail{
     grid-template-columns:1fr;
+    gap:28px;
   }
 
   .gallery{
@@ -920,17 +939,11 @@ hr{
   }
 
   .main-photo{
-    height:380px;
+    height:340px;
   }
 
   .detail-content h1{
-    font-size:36px;
+    font-size:24px;
   }
 
-}
-.detail-date{
-  color:#667085;
-  font-size:15px;
-  margin-top:-10px;
-  margin-bottom:26px;
 }
