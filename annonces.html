@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion annonces</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script defer src="js/annonces-admin.js"></script>
+</head>
+
+<body class="admin-page">
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <img src="assets/logo-parenteze.png">
+
+      <div>
+        <h2>Parenteze</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="admin.html">📊 Dashboard</a>
+      <a class="active">📦 Annonces</a>
+    </nav>
+
+  </aside>
+
+  <main class="dashboard-content">
+
+    <div class="dashboard-header">
+
+      <div>
+        <h1>Gestion des annonces</h1>
+        <p>Toutes les annonces de la plateforme.</p>
+      </div>
+
+    </div>
+
+    <div class="dashboard-section">
+
+      <div class="section-title-row">
+
+        <select id="statusFilter">
+
+          <option value="">Tous les statuts</option>
+          <option value="pending">Pending</option>
+          <option value="published">Publié</option>
+          <option value="rejected">Refusé</option>
+
+        </select>
+
+      </div>
+
+      <div id="allAds" class="admin-ads-grid"></div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>
