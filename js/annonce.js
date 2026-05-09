@@ -35,81 +35,85 @@ async function loadAnnonce(){
 
   document.getElementById("annonceDetail").innerHTML = `
 
-    <div style="
-      max-width:1100px;
-      margin:auto;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:40px;
-      align-items:start;
-    ">
+    <div class="marketplace-detail">
 
-      <div>
+      <div class="gallery">
 
-        ${
-          annonce.photo_url
-          ?
-          `
+        <img
+          id="mainPhoto"
+
+          src="${
+            annonce.photo_urls?.[0]
+            || annonce.photo_url
+            || ''
+          }"
+
+          class="main-photo"
+        >
+
+        <div class="thumbs">
+
+          ${(annonce.photo_urls || []).map(url => `
+
             <img
-              src="${annonce.photo_url}"
+              src="${url}"
 
-              style="
-                width:100%;
-                border-radius:24px;
-                object-fit:cover;
-                box-shadow:0 15px 35px rgba(0,0,0,0.08);
+              class="thumb"
+
+              onclick="
+                document.getElementById('mainPhoto').src='${url}'
               "
             >
-          `
-          :
-          ""
-        }
+
+          `).join("")}
+
+        </div>
 
       </div>
 
-      <div>
+      <div class="detail-content">
 
-        <h1 style="
-          font-size:42px;
-          margin-top:0;
-        ">
+        <div class="detail-badge">
+
+          ${
+            annonce.annonce_type === "donate"
+            ? "🎁 À donner"
+            : annonce.annonce_type === "search"
+            ? "🔎 Recherche"
+            : "💰 À vendre"
+          }
+
+        </div>
+
+        <h1>
           ${annonce.title}
         </h1>
 
-        <p style="
-          font-size:30px;
-          font-weight:800;
-          color:#159447;
-          margin-top:10px;
-        ">
+        <div class="detail-price">
           ${annonce.price_label || ""}
-        </p>
+        </div>
 
-        <div style="
-          display:flex;
-          gap:12px;
-          flex-wrap:wrap;
-          margin:25px 0;
-        ">
+        <div class="detail-meta">
 
-          <div class="btn btn-outline">
+          <div class="meta-pill">
             📍 ${annonce.commune || "Non renseigné"}
           </div>
 
-          <div class="btn btn-outline">
+          <div class="meta-pill">
             🏫 ${annonce.etablissement || "Non renseigné"}
           </div>
 
         </div>
 
-        <p style="
-          line-height:1.8;
-          font-size:17px;
-        ">
-          ${annonce.description || ""}
-        </p>
+        <div class="detail-description">
 
-        <button class="btn btn-primary" style="margin-top:30px;">
+          ${annonce.description || ""}
+
+        </div>
+
+        <button
+          class="btn btn-primary detail-contact"
+        >
           💬 Contacter le parent
         </button>
 
