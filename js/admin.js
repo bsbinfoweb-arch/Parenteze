@@ -5,20 +5,13 @@ const supabaseClient = supabase.createClient(
 
 async function updateAnnonceStatus(id, status){
 
-async function updateAnnonceStatus(id, status){
-
-  console.log("UPDATE", id, status);
-
-  const { data, error } = await supabaseClient
+  const { error } = await supabaseClient
     .from("annonces")
     .update({ status: status })
-    .eq("id", id)
-    .select();
-
-  console.log(data);
-  console.log(error);
+    .eq("id", id);
 
   if(error){
+    console.error(error);
     alert(error.message);
     return;
   }
@@ -76,12 +69,12 @@ async function loadDashboard(){
     </div>
   `;
 
-const { data: annonces, error } = await supabaseClient
-  .from("annonces")
-  .select("*")
-  .eq("status", "pending")
-  .order("created_at", { ascending:false })
-  .limit(10);
+  const { data: annonces, error } = await supabaseClient
+    .from("annonces")
+    .select("*")
+    .eq("status", "pending")
+    .order("created_at", { ascending:false })
+    .limit(10);
 
   if(error){
     console.error(error);
@@ -93,7 +86,7 @@ const { data: annonces, error } = await supabaseClient
   if(!annonces || annonces.length === 0){
 
     container.innerHTML = `
-      <p>Aucune annonce.</p>
+      <p>Aucune annonce en attente.</p>
     `;
 
     return;
@@ -153,4 +146,5 @@ const { data: annonces, error } = await supabaseClient
 }
 
 loadDashboard();
+
 window.updateAnnonceStatus = updateAnnonceStatus;
