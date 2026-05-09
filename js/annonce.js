@@ -70,7 +70,20 @@ async function loadAnnonce(){
         </div>
 
       </div>
+<a
+  href="index.html"
 
+  style="
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:25px;
+    font-weight:800;
+    color:#159447;
+  "
+>
+  ← Retour aux annonces
+</a>
       <div class="detail-content">
 
         <div class="detail-badge">
