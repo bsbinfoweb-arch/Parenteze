@@ -141,26 +141,37 @@ async function loadMyAds(){
               ${ad.status}
             </p>
 
-            <div
-              style="
-                display:flex;
-                gap:10px;
-                margin-top:18px;
-              "
-            >
+           <div
+  style="
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+  "
+>
 
-              <button
+  <a
 
-                class="btn btn-outline"
+    class="btn btn-primary"
 
-                onclick="
-                  deleteAnnonce('${ad.id}')
-                "
-              >
-                🗑️ Supprimer
-              </button>
+    href="
+      modifier-annonce.html?id=${ad.id}
+    "
+  >
+    ✏️ Modifier
+  </a>
 
-            </div>
+  <button
+
+    class="btn btn-outline"
+
+    onclick="
+      deleteAnnonce('${ad.id}')
+    "
+  >
+    🗑️ Supprimer
+  </button>
+
+</div>
 
           </div>
 
