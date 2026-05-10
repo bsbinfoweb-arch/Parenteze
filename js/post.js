@@ -133,10 +133,34 @@ document
     const categoryValue =
       document.getElementById("category").value;
 
+    const contactType =
+      document.getElementById("contactType").value;
+
+    const contactValue =
+      document.getElementById("contactValue")
+        .value
+        .trim();
+
     if(!title){
 
       msg.textContent =
         "Le titre est obligatoire.";
+
+      return;
+    }
+
+    if(!contactType){
+
+      msg.textContent =
+        "Choisis comment tu souhaites être contacté.";
+
+      return;
+    }
+
+    if(!contactValue){
+
+      msg.textContent =
+        "Renseigne ton email ou ton numéro.";
 
       return;
     }
@@ -183,16 +207,10 @@ document
 
         photo_url:
           photoUrls[0] || null,
-        contact_type:
-  document
-    .getElementById("contactType")
-    .value,
 
-contact_value:
-  document
-    .getElementById("contactValue")
-    .value
-    .trim(),
+        contact_type: contactType,
+
+        contact_value: contactValue,
 
         status: "pending"
       });
@@ -219,6 +237,7 @@ contact_value:
     document.getElementById("etablissement").value = "";
     document.getElementById("photos").value = "";
     document.getElementById("contactValue").value = "";
+    document.getElementById("contactType").value = "";
 
   });
 
