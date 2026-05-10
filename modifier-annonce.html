@@ -23,37 +23,73 @@
 
   <main class="form-card">
 
-    <h1>
-      Modifier mon annonce
-    </h1>
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:25px;
+      gap:15px;
+      flex-wrap:wrap;
+    "
+  >
 
-    <p>
-      Modifiez facilement votre annonce.
-    </p>
+    <a
+      href="mes-annonces.html"
 
-    <input id="title" placeholder="Titre">
+      style="
+        text-decoration:none;
+        font-weight:800;
+        color:#159447;
+      "
+    >
+      ← Retour à mes annonces
+    </a>
 
-    <textarea
-      id="description"
-      placeholder="Description"
-    ></textarea>
+    <img
+      src="assets/logo-parenteze.png"
 
-    <input
-      id="price"
-      type="number"
-      placeholder="Prix"
+      alt="Parenteze"
+
+      style="
+        width:65px;
+        height:auto;
+      "
     >
 
-    <button
-      class="btn btn-primary full"
-      id="saveBtn"
-    >
-      💾 Enregistrer
-    </button>
+  </div>
 
-    <p id="message"></p>
+  <h1>
+    Modifier mon annonce
+  </h1>
 
-  </main>
+  <p>
+    Modifiez facilement votre annonce.
+  </p>
+
+  <input id="title" placeholder="Titre">
+
+  <textarea
+    id="description"
+    placeholder="Description"
+  ></textarea>
+
+  <input
+    id="price"
+    type="number"
+    placeholder="Prix"
+  >
+
+  <button
+    class="btn btn-primary full"
+    id="saveBtn"
+  >
+    💾 Enregistrer
+  </button>
+
+  <p id="message"></p>
+
+</main>
 
 </body>
 
