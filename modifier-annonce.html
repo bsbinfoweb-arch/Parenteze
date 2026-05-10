@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <title>
+    Modifier annonce
+  </title>
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <script src="js/config.js"></script>
+
+  <script defer src="js/modifier-annonce.js"></script>
+
+</head>
+
+<body class="page">
+
+  <main class="form-card">
+
+    <h1>
+      Modifier mon annonce
+    </h1>
+
+    <p>
+      Modifiez facilement votre annonce.
+    </p>
+
+    <input id="title" placeholder="Titre">
+
+    <textarea
+      id="description"
+      placeholder="Description"
+    ></textarea>
+
+    <input
+      id="price"
+      type="number"
+      placeholder="Prix"
+    >
+
+    <button
+      class="btn btn-primary full"
+      id="saveBtn"
+    >
+      💾 Enregistrer
+    </button>
+
+    <p id="message"></p>
+
+  </main>
+
+</body>
+
+</html>
