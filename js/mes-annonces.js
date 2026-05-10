@@ -99,83 +99,115 @@ async function loadMyAds(){
 
       <div class="admin-ads-grid">
 
-        ${annonces.map(ad => `
+       ${annonces.map(ad => `
 
-          <div class="admin-ad">
+  <div class="ad">
 
-            ${
-              ad.photo_url
+    <div class="ad-img">
 
-              ?
+      ${
+        ad.photo_url
 
-              `
-                <img
-                  src="${ad.photo_url}"
+        ?
 
-                  style="
-                    width:100%;
-                    height:180px;
-                    object-fit:cover;
-                    border-radius:14px;
-                    margin-bottom:14px;
-                  "
-                >
-              `
+        `
+          <img
+            src="${ad.photo_url}"
 
-              :
+            style="
+              width:100%;
+              height:100%;
+              object-fit:cover;
+            "
+          >
+        `
 
-              ``
-            }
+        :
 
-            <h3>
-              ${ad.title}
-            </h3>
+        `📦`
+      }
 
-            <p>
-              ${ad.price_label || ""}
-            </p>
+    </div>
 
-            <p>
-              <strong>Statut :</strong>
+    <div class="ad-body">
 
-              ${ad.status}
-            </p>
+      <div class="
+        tag ${ad.annonce_type}
+      ">
 
-           <div
-  style="
-    display:flex;
-    gap:10px;
-    margin-top:18px;
-  "
->
+        ${
+          ad.annonce_type === "sell"
+            ? "À vendre"
 
-  <a
+            : ad.annonce_type === "donate"
+            ? "À donner"
 
-    class="btn btn-primary"
+            : "Recherche"
+        }
 
-    href="
-      modifier-annonce.html?id=${ad.id}
-    "
-  >
-    ✏️ Modifier
-  </a>
+      </div>
 
-  <button
+      <h3>
+        ${ad.title}
+      </h3>
 
-    class="btn btn-outline"
+      <p class="price">
+        ${ad.price_label || ""}
+      </p>
 
-    onclick="
-      deleteAnnonce('${ad.id}')
-    "
-  >
-    🗑️ Supprimer
-  </button>
+      <p>
+        <strong>Statut :</strong>
+        ${ad.status}
+      </p>
 
-</div>
+      <div
+        style="
+          display:flex;
+          gap:8px;
+          margin-top:15px;
+          flex-wrap:wrap;
+        "
+      >
 
-          </div>
+        <a
 
-        `).join("")}
+          class="btn btn-primary"
+
+          href="
+            modifier-annonce.html?id=${ad.id}
+          "
+
+          style="
+            padding:10px 14px;
+            font-size:14px;
+          "
+        >
+          ✏️ Modifier
+        </a>
+
+        <button
+
+          class="btn btn-outline"
+
+          onclick="
+            deleteAnnonce('${ad.id}')
+          "
+
+          style="
+            padding:10px 14px;
+            font-size:14px;
+          "
+        >
+          🗑️ Supprimer
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+`).join("")}
 
       </div>
 
