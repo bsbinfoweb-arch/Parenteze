@@ -9,71 +9,153 @@
   <script defer src="js/post.js"></script>
 </head>
 <body class="page">
+ <body class="page">
+
   <main class="form-card">
-    <h1>Déposer une annonce</h1>
-    <p>Ton annonce sera validée avant publication.</p>
-    <input id="title" placeholder="Titre de l’annonce">
-    <textarea id="description" placeholder="Description"></textarea>
-    <input id="price" type="number" placeholder="Prix, laisser vide si gratuit">
-    <select id="annonceType">
-      <option value="sell">À vendre</option>
-      <option value="donate">À donner</option>
-      <option value="search">Je recherche</option>
-    </select>
-    <select id="category"></select>
- <select id="commune">
-  <option value="">
-    Choisir une commune
-  </option>
-</select>
 
-<select id="etablissement">
-  <option value="">
-    Choisir un établissement
-  </option>
-</select>
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        flex-wrap:wrap;
+        margin-bottom:30px;
+      "
+    >
+
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          gap:15px;
+        "
+      >
+
+        <img
+          src="assets/logo-parenteze.png"
+
+          alt="Parenteze"
+
+          style="
+            width:70px;
+            height:auto;
+          "
+        >
+
+        <div>
+
+          <h1
+            style="
+              margin:0;
+            "
+          >
+            Déposer une annonce
+          </h1>
+
+          <p
+            style="
+              margin:5px 0 0;
+              color:#666;
+            "
+          >
+            Publiez votre annonce facilement
+          </p>
+
+        </div>
+
+      </div>
+
+      <a
+        class="btn btn-outline"
+        href="mes-annonces.html"
+      >
+        📦 Mes annonces
+      </a>
+
+    </div>
+
     <input
-  id="photos"
-  type="file"
-  accept="image/*"
-  multiple
->
-<label
-  for="contactType"
+      id="title"
+      placeholder="Titre de l’annonce"
+    >
 
-  style="
-    display:block;
-    margin:18px 0 10px;
-    font-weight:700;
-  "
->
-  Comment souhaitez-vous être contacté ?
-</label>
+    <textarea
+      id="description"
+      placeholder="Description"
+    ></textarea>
 
-<select id="contactType">
+    <input
+      id="price"
+      type="number"
+      placeholder="Prix, laisser vide si gratuit"
+    >
 
-  <option value="">
-    Choisir un mode de contact
-  </option>
+    <select id="annonceType">
 
-  <option value="email">
-    📧 Par email
-  </option>
+      <option value="sell">
+        💰 À vendre
+      </option>
 
-  <option value="phone">
-    📱 Par téléphone
-  </option>
+      <option value="donate">
+        🎁 À donner
+      </option>
 
-</select>
+      <option value="search">
+        🔎 Je recherche
+      </option>
 
-<input
-  id="contactValue"
-  placeholder="Votre email ou numéro"
-  style="margin-top:12px;"
-/>
-    <button class="btn btn-primary full" id="submitAd">Envoyer pour validation</button>
+    </select>
+
+    <select id="category"></select>
+
+    <select id="commune">
+      <option value="">
+        Choisir une commune
+      </option>
+    </select>
+
+    <select id="etablissement">
+      <option value="">
+        Choisir un établissement
+      </option>
+    </select>
+
+    <input
+      id="photos"
+      type="file"
+      accept="image/*"
+      multiple
+    >
+
+    <select id="contactType">
+
+      <option value="email">
+        📧 Email
+      </option>
+
+      <option value="phone">
+        📱 Téléphone
+      </option>
+
+    </select>
+
+    <input
+      id="contactValue"
+      placeholder="Votre email ou numéro"
+    >
+
+    <button
+      class="btn btn-primary full"
+      id="submitAd"
+    >
+      🚀 Envoyer pour validation
+    </button>
+
     <p id="postMessage"></p>
-    <a href="index.html">Retour accueil</a>
+
   </main>
+
+</body>
 </body>
 </html>
