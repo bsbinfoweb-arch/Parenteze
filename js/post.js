@@ -323,6 +323,6 @@ document
 
 // =========================
 
-requireUser();
+loadFormData();
 
 loadCategories();
