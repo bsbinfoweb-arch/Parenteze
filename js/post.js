@@ -218,6 +218,7 @@ contact_value:
     document.getElementById("commune").value = "";
     document.getElementById("etablissement").value = "";
     document.getElementById("photos").value = "";
+    document.getElementById("contactValue").value = "";
 
   });
 
