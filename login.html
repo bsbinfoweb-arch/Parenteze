@@ -1,26 +1,217 @@
+# login.html
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Connexion - Parents Market 971</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Connexion - Parenteze
+  </title>
+
   <link rel="stylesheet" href="css/style.css" />
+
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
   <script src="js/config.js"></script>
+
   <script defer src="js/auth.js"></script>
 </head>
+
 <body class="page">
-  <main class="auth-card">
-    <h1>Connexion</h1>
-    <p>Connecte-toi avec Google ou avec ton email.</p>
-    <button class="btn btn-primary full" id="googleLogin">Continuer avec Google</button>
-    <hr>
-    <input id="email" type="email" placeholder="Adresse email">
-    <input id="password" type="password" placeholder="Mot de passe">
-    <label class="check"><input type="checkbox" id="rgpd"> J’accepte la politique de confidentialité</label>
-    <button class="btn btn-outline full" id="emailSignup">Créer mon compte</button>
-    <button class="btn btn-primary full" id="emailLogin">Me connecter</button>
+
+  <main class="auth-card premium-auth">
+
+    <div class="auth-branding">
+
+      <img
+        src="assets/logo-parenteze.png"
+        alt="Parenteze"
+        class="auth-logo"
+      >
+
+      <h1>
+        Bienvenue sur Parenteze
+      </h1>
+
+      <p>
+        La plateforme des parents d’élèves de Guadeloupe.
+      </p>
+
+    </div>
+
+    <button
+      id="googleLogin"
+      class="google-btn"
+    >
+
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+        alt="Google"
+      >
+
+      <span>
+        Continuer avec Google
+      </span>
+
+    </button>
+
+    <div class="auth-separator">
+      <span>ou</span>
+    </div>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Adresse email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Mot de passe"
+    >
+
+    <label class="check">
+
+      <input
+        type="checkbox"
+        id="rgpd"
+      >
+
+      J’accepte la politique de confidentialité.
+
+    </label>
+
+    <button
+      class="btn btn-primary full"
+      id="emailLogin"
+    >
+      Se connecter
+    </button>
+
+    <button
+      class="btn btn-outline full"
+      id="emailSignup"
+    >
+      Créer un compte
+    </button>
+
     <p id="authMessage"></p>
-    <a href="index.html">Retour accueil</a>
+
+    <div class="auth-footer-links">
+
+      <a href="index.html">
+        ← Retour accueil
+      </a>
+
+      <a href="privacy.html">
+        Politique de confidentialité
+      </a>
+
+    </div>
+
   </main>
+
 </body>
 </html>
+```
+
+---
+
+# CSS à ajouter dans style.css
+
+```css
+/* =========================
+   PREMIUM LOGIN
+========================= */
+
+.premium-auth{
+  max-width:520px;
+  border-radius:28px;
+  padding:42px;
+}
+
+.auth-branding{
+  text-align:center;
+  margin-bottom:34px;
+}
+
+.auth-logo{
+  width:95px;
+  height:auto;
+  margin-bottom:18px;
+}
+
+.auth-branding h1{
+  margin:0 0 10px;
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.auth-branding p{
+  margin:0;
+  color:#667085;
+  line-height:1.6;
+}
+
+.google-btn{
+  width:100%;
+  height:58px;
+  border-radius:14px;
+  border:1px solid #dadce0;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.google-btn:hover{
+  background:#f8f9fa;
+  box-shadow:0 8px 22px rgba(0,0,0,.05);
+}
+
+.google-btn img{
+  width:24px;
+  height:24px;
+}
+
+.auth-separator{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin:28px 0;
+  color:#98a2b3;
+  font-size:14px;
+}
+
+.auth-separator::before,
+.auth-separator::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:#e7eaee;
+}
+
+.auth-footer-links{
+  display:flex;
+  justify-content:space-between;
+  margin-top:24px;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.auth-footer-links a{
+  color:#159447;
+  font-weight:700;
+  font-size:14px;
+}
+```
