@@ -102,27 +102,42 @@ async function loadAnnonce(){
 
             .from("annonces")
 
-            .update({
+.update({
 
-              title:
-                document
-                  .getElementById("title")
-                  .value
-                  .trim(),
+  title:
+    document
+      .getElementById("title")
+      .value
+      .trim(),
 
-              description:
-                document
-                  .getElementById("description")
-                  .value
-                  .trim(),
+  description:
+    document
+      .getElementById("description")
+      .value
+      .trim(),
 
-              price:
-                Number(
-                  document
-                    .getElementById("price")
-                    .value
-                ) || null
-            })
+  price:
+    Number(
+      document
+        .getElementById("price")
+        .value
+    ) || null,
+
+  price_label:
+    document
+      .getElementById("price")
+      .value
+
+      ?
+
+      `${document
+        .getElementById("price")
+        .value} €`
+
+      :
+
+      "Gratuit"
+})
 
             .eq("id", id);
 
