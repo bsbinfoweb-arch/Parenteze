@@ -13,9 +13,19 @@ document.getElementById("googleLogin").addEventListener("click", async () => {
   }
 
   const { error } = await supabaseClient.auth.signInWithOAuth({
-    provider: "google",
-    options: { redirectTo: "https://bsbinfoweb-arch.github.io/Parenteze/index.html" }
-  });
+
+  provider: "google",
+
+  options: {
+
+    redirectTo:
+      "https://bsbinfoweb-arch.github.io/Parenteze/index.html",
+
+    queryParams:{
+      prompt:"select_account"
+    }
+  }
+});
 
   if(error) msg.textContent = error.message;
 });
