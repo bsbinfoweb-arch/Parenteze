@@ -97,49 +97,42 @@ async function loadAnnonce(){
 
       async () => {
 
+        const priceValue =
+          document
+            .getElementById("price")
+            .value;
+
+        const parsedPrice =
+          priceValue
+            ? Number(priceValue)
+            : null;
+
         const { error } =
           await supabaseClient
 
             .from("annonces")
 
-const priceValue =
-  document
-    .getElementById("price")
-    .value;
+            .update({
 
-const parsedPrice =
-  priceValue
-    ? Number(priceValue)
-    : null;
+              title:
+                document
+                  .getElementById("title")
+                  .value
+                  .trim(),
 
-const { error } =
-  await supabaseClient
+              description:
+                document
+                  .getElementById("description")
+                  .value
+                  .trim(),
 
-    .from("annonces")
+              price: parsedPrice,
 
-    .update({
-
-      title:
-        document
-          .getElementById("title")
-          .value
-          .trim(),
-
-      description:
-        document
-          .getElementById("description")
-          .value
-          .trim(),
-
-      price: parsedPrice,
-
-      price_label:
-        parsedPrice !== null
-          ? `${parsedPrice} €`
-          : "Gratuit"
-    })
-
-    .eq("id", id);
+              price_label:
+                parsedPrice !== null
+                  ? `${parsedPrice} €`
+                  : "Gratuit"
+            })
 
             .eq("id", id);
 
