@@ -155,24 +155,31 @@ async function updateHeaderAuth(){
   }
 
   document.getElementById(
-    "headerActions"
-  ).innerHTML = `
+  "headerActions"
+).innerHTML = `
 
-    <a
-      class="btn btn-outline"
-      href="mes-annonces.html"
-    >
-      📦 Mes annonces
-    </a>
+  <a
+    class="btn btn-outline"
+    href="mes-annonces.html"
+  >
+    📦 Mes annonces
+  </a>
 
-    <a
-      class="btn btn-primary"
-      href="post.html"
-    >
-      ⊕ Déposer une annonce
-    </a>
+  <button
+    class="btn btn-outline"
+    onclick="logoutUser()"
+  >
+    🚪 Déconnexion
+  </button>
 
-  `;
+  <a
+    class="btn btn-primary"
+    href="post.html"
+  >
+    ⊕ Déposer une annonce
+  </a>
+
+`;
 }
 
 updateHeaderAuth();
