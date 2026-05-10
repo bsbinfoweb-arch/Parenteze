@@ -49,14 +49,7 @@ document.getElementById("emailSignup").addEventListener("click", async () => {
 
   msg.textContent = "Compte créé. Vérifie ton email si une confirmation est demandée.";
 
-  if(data.user){
-    await supabaseClient.from("profiles").update({ rgpd_accepted:true }).eq("id", data.user.id);
-    await supabaseClient.from("consents").insert({
-      user_id:data.user.id,
-      consent_type:"privacy_policy",
-      accepted:true
-    });
-  }
+
 });
 
 document.getElementById("emailLogin").addEventListener("click", async () => {
