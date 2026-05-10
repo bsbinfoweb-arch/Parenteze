@@ -952,12 +952,14 @@ hr{
 ========================= */
 
 .related-section{
-  margin-top:70px;
+  max-width:1200px;
+  margin:70px auto 0;
+  padding:0 20px;
 }
 
 .related-section h2{
   font-size:24px;
-  margin-bottom:26px;
+  margin-bottom:24px;
 }
 
 .related-grid{
@@ -992,7 +994,8 @@ hr{
 
 .related-body h3{
   margin:0 0 10px;
-  font-size:16px;
+  font-size:15px;
+  line-height:1.4;
 }
 
 .related-body p{
