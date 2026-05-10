@@ -23,10 +23,81 @@ async function loadCategories(){
 }
 
 async function loadEtablissements(){
-  const { data } = await supabaseClient.from("etablissements").select("*").order("name");
-  const filter = document.getElementById("filterEtablissement");
-  if(!data) return;
-  filter.innerHTML += data.map(e => `<option>${e.name}</option>`).join("");
+
+  const { data: etablissements } =
+    await supabaseClient
+      .from("etablissements")
+      .select("*")
+      .order("commune");
+
+  if(!etablissements){
+    return;
+  }
+
+  // =========================
+  // COMMUNES UNIQUES
+  // =========================
+
+  const communes =
+    [...new Set(
+      etablissements.map(
+        e => e.commune
+      )
+    )];
+
+  const communeSelect =
+    document.getElementById("filterCommune");
+
+  communeSelect.innerHTML = `
+    <option value="">
+      Toutes les communes
+    </option>
+  `;
+
+  communeSelect.innerHTML += communes.map(c => `
+    <option value="${c}">
+      ${c}
+    </option>
+  `).join("");
+
+  // =========================
+  // FILTRE ETABLISSEMENTS
+  // =========================
+
+  communeSelect.addEventListener(
+    "change",
+
+    () => {
+
+      const selectedCommune =
+        communeSelect.value;
+
+      const etablissementSelect =
+        document.getElementById(
+          "filterEtablissement"
+        );
+
+      const filtered =
+        etablissements.filter(
+          e => e.commune === selectedCommune
+        );
+
+      etablissementSelect.innerHTML = `
+        <option value="">
+          Tous les établissements
+        </option>
+      `;
+
+      etablissementSelect.innerHTML +=
+        filtered.map(e => `
+
+          <option value="${e.name}">
+            ${e.name}
+          </option>
+
+        `).join("");
+    }
+  );
 }
 
 function demoAds(){
