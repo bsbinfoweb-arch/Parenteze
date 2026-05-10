@@ -29,19 +29,99 @@ async function requireUser(){
 // LOAD CATEGORIES
 // =========================
 
-async function loadCategories(){
+// =========================
+// LOAD FORM DATA
+// =========================
 
-  const { data } = await supabaseClient
+async function loadFormData(){
+
+  // =========================
+  // CATEGORIES
+  // =========================
+
+  const { data: categories } = await supabaseClient
     .from("categories")
     .select("*")
     .order("id");
 
   document.getElementById("category").innerHTML =
-    (data || []).map(c => `
+    (categories || []).map(c => `
       <option value="${c.id}">
         ${c.name}
       </option>
     `).join("");
+
+  // =========================
+  // ETABLISSEMENTS
+  // =========================
+
+  const { data: etablissements } = await supabaseClient
+    .from("etablissements")
+    .select("*")
+    .order("commune");
+
+  // =========================
+  // COMMUNES UNIQUES
+  // =========================
+
+  const communes =
+    [...new Set(
+      (etablissements || []).map(
+        e => e.commune
+      )
+    )];
+
+  const communeSelect =
+    document.getElementById("commune");
+
+  communeSelect.innerHTML = `
+    <option value="">
+      Choisir une commune
+    </option>
+  `;
+
+  communeSelect.innerHTML += communes.map(c => `
+    <option value="${c}">
+      ${c}
+    </option>
+  `).join("");
+
+  // =========================
+  // FILTRE ETABLISSEMENTS
+  // =========================
+
+  communeSelect.addEventListener(
+    "change",
+
+    () => {
+
+      const selectedCommune =
+        communeSelect.value;
+
+      const etablissementSelect =
+        document.getElementById("etablissement");
+
+      const filtered =
+        etablissements.filter(
+          e => e.commune === selectedCommune
+        );
+
+      etablissementSelect.innerHTML = `
+        <option value="">
+          Choisir un établissement
+        </option>
+      `;
+
+      etablissementSelect.innerHTML +=
+        filtered.map(e => `
+
+          <option value="${e.name}">
+            ${e.name}
+          </option>
+
+        `).join("");
+    }
+  );
 }
 
 // =========================
