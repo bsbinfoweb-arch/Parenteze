@@ -150,11 +150,38 @@ async function loadAnnonce(){
 
         </div>
 
-        <button
-          class="btn btn-primary detail-contact"
-        >
-          💬 Contacter le parent
-        </button>
+        ${
+  annonce.contact_type === "email"
+
+  ?
+
+  `
+    <a
+      href="mailto:${annonce.contact_value}"
+
+      class="btn btn-primary detail-contact"
+    >
+      📧 Envoyer un email
+    </a>
+  `
+
+  :
+
+  `
+    <button
+
+      class="btn btn-primary detail-contact"
+
+      onclick="
+        alert(
+          'Numéro du parent : ${annonce.contact_value}'
+        )
+      "
+    >
+      📱 Voir le numéro
+    </button>
+  `
+}
 
       </div>
 
