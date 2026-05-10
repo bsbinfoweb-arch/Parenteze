@@ -235,7 +235,7 @@ nav a.active{
   box-shadow:var(--shadow);
   padding:18px;
   display:grid;
-  grid-template-columns:1fr 0.8fr 0.9fr 1fr auto;
+  grid-template-columns:0.8fr 0.8fr 1fr 1fr auto;
   gap:14px;
   position:relative;
   z-index:3;
