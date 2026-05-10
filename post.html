@@ -29,14 +29,30 @@
   accept="image/*"
   multiple
 >
-    <select id="contactType">
+<label
+  for="contactType"
+
+  style="
+    display:block;
+    margin:18px 0 10px;
+    font-weight:700;
+  "
+>
+  Comment souhaitez-vous être contacté ?
+</label>
+
+<select id="contactType">
+
+  <option value="">
+    Choisir un mode de contact
+  </option>
 
   <option value="email">
-    📧 Email
+    📧 Par email
   </option>
 
   <option value="phone">
-    📱 Téléphone
+    📱 Par téléphone
   </option>
 
 </select>
@@ -44,6 +60,7 @@
 <input
   id="contactValue"
   placeholder="Votre email ou numéro"
+  style="margin-top:12px;"
 />
     <button class="btn btn-primary full" id="submitAd">Envoyer pour validation</button>
     <p id="postMessage"></p>
