@@ -139,3 +139,40 @@ async function loadAds(){
 loadCategories();
 loadEtablissements();
 loadAds();
+// =========================
+// AUTH HEADER
+// =========================
+
+async function updateHeaderAuth(){
+
+  const { data } =
+    await supabaseClient.auth.getUser();
+
+  const user = data.user;
+
+  if(!user){
+    return;
+  }
+
+  document.getElementById(
+    "headerActions"
+  ).innerHTML = `
+
+    <a
+      class="btn btn-outline"
+      href="mes-annonces.html"
+    >
+      📦 Mes annonces
+    </a>
+
+    <a
+      class="btn btn-primary"
+      href="post.html"
+    >
+      ⊕ Déposer une annonce
+    </a>
+
+  `;
+}
+
+updateHeaderAuth();
