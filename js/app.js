@@ -183,3 +183,17 @@ async function updateHeaderAuth(){
 }
 
 updateHeaderAuth();
+// =========================
+// LOGOUT
+// =========================
+
+async function logoutUser(){
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href =
+    "index.html";
+}
+
+window.logoutUser =
+  logoutUser;
