@@ -183,6 +183,16 @@ document
 
         photo_url:
           photoUrls[0] || null,
+        contact_type:
+  document
+    .getElementById("contactType")
+    .value,
+
+contact_value:
+  document
+    .getElementById("contactValue")
+    .value
+    .trim(),
 
         status: "pending"
       });
