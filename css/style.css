@@ -1020,3 +1020,14 @@ hr{
   }
 
 }
+/* HEADER USER BUTTONS */
+
+.header .btn-outline{
+  padding:11px 16px;
+  font-size:14px;
+}
+
+.header .btn-primary{
+  padding:11px 18px;
+  font-size:14px;
+}
