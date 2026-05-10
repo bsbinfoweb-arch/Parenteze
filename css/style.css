@@ -228,17 +228,18 @@ nav a.active{
 /* SEARCH */
 
 .search-box{
-  width:min(1060px,90%);
+  width:min(1200px,92%);
   margin:-30px auto 0;
   background:#fff;
-  border-radius:14px;
+  border-radius:18px;
   box-shadow:var(--shadow);
-  padding:20px;
+  padding:18px;
   display:grid;
-  grid-template-columns:1fr 1fr 1fr auto;
-  gap:12px;
+  grid-template-columns:2fr 1fr 1fr auto;
+  gap:14px;
   position:relative;
   z-index:3;
+  align-items:center;
 }
 
 select,
