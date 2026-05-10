@@ -102,42 +102,44 @@ async function loadAnnonce(){
 
             .from("annonces")
 
-.update({
+const priceValue =
+  document
+    .getElementById("price")
+    .value;
 
-  title:
-    document
-      .getElementById("title")
-      .value
-      .trim(),
+const parsedPrice =
+  priceValue
+    ? Number(priceValue)
+    : null;
 
-  description:
-    document
-      .getElementById("description")
-      .value
-      .trim(),
+const { error } =
+  await supabaseClient
 
-  price:
-    Number(
-      document
-        .getElementById("price")
-        .value
-    ) || null,
+    .from("annonces")
 
-  price_label:
-    document
-      .getElementById("price")
-      .value
+    .update({
 
-      ?
+      title:
+        document
+          .getElementById("title")
+          .value
+          .trim(),
 
-      `${document
-        .getElementById("price")
-        .value} €`
+      description:
+        document
+          .getElementById("description")
+          .value
+          .trim(),
 
-      :
+      price: parsedPrice,
 
-      "Gratuit"
-})
+      price_label:
+        parsedPrice !== null
+          ? `${parsedPrice} €`
+          : "Gratuit"
+    })
+
+    .eq("id", id);
 
             .eq("id", id);
 
