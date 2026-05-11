@@ -1418,7 +1418,7 @@ hr{
 
 .hero-map{
   width:100%;
-  max-width:620px;
+  max-width:480px;
   height:auto;
   object-fit:contain;
   margin-top:34px;
