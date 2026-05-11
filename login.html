@@ -1,116 +1,183 @@
+<!-- login.html -->
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>
     Connexion - Parenteze
   </title>
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  />
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
   <script src="js/config.js"></script>
 
   <script defer src="js/auth.js"></script>
+
 </head>
 
-<body class="page">
+<body class="login-page">
 
-  <main class="auth-card premium-auth">
+  <div class="login-layout">
 
-    <div class="auth-branding">
+    <!-- LEFT -->
+    <div class="login-left">
 
-      <img
-        src="assets/logo-parenteze.png"
-        alt="Parenteze"
-        class="auth-logo"
-      >
+      <div class="login-card">
 
-      <h1>
-        Bienvenue sur Parenteze
-      </h1>
+        <img
+          src="assets/logo-parenteze.png"
+          alt="Parenteze"
+          class="login-logo"
+        >
 
-      <p>
-        La plateforme des parents d’élèves de Guadeloupe.
-      </p>
+        <h1>
+          S'inscrire
+        </h1>
+
+        <p class="login-subtitle">
+          Rejoignez la communauté des parents et restez connectés à la vie scolaire.
+        </p>
+
+        <!-- GOOGLE -->
+
+        <button
+          id="googleLogin"
+          class="google-btn"
+        >
+
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+            alt="Google"
+          >
+
+          <span>
+            S'inscrire avec Google
+          </span>
+
+        </button>
+
+        <!-- SEPARATOR -->
+
+        <div class="separator">
+
+          <div></div>
+
+          <span>
+            ou
+          </span>
+
+          <div></div>
+
+        </div>
+
+        <p class="separator-text">
+          inscrivez-vous avec votre e-mail
+        </p>
+
+        <!-- EMAIL -->
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Saisissez votre adresse e-mail"
+        >
+
+        <!-- PASSWORD -->
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Saisissez votre mot de passe"
+        >
+
+        <!-- RGPD -->
+
+        <label class="login-check">
+
+          <input
+            type="checkbox"
+            id="rgpd"
+          >
+
+          <span>
+            J'accepte la politique de confidentialité
+            et les conditions générales d'utilisation.
+          </span>
+
+        </label>
+
+        <!-- BUTTON -->
+
+        <button
+          id="emailSignup"
+          class="signup-btn"
+        >
+          S'inscrire
+        </button>
+
+        <!-- LOGIN -->
+
+        <p class="login-switch">
+
+          Vous avez déjà un compte ?
+
+          <button
+            id="emailLogin"
+            class="link-btn"
+          >
+            Se connecter
+          </button>
+
+        </p>
+
+        <p id="authMessage"></p>
+
+      </div>
 
     </div>
 
-    <button
-      id="googleLogin"
-      class="google-btn"
-    >
+    <!-- RIGHT -->
 
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-        alt="Google"
-      >
+    <div class="login-right">
 
-      <span>
-        Continuer avec Google
-      </span>
+      <div class="right-overlay">
 
-    </button>
+        <h2>
+          Donnez une seconde vie
+          aux articles scolaires
+          de vos enfants
+        </h2>
 
-    <div class="auth-separator">
-      <span>ou</span>
-    </div>
+        <p>
+          Achetez, vendez et échangez facilement entre parents
+          des établissements scolaires de Guadeloupe.
+        </p>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Adresse email"
-    >
+        <img
+          src="assets/guadeloupe-login.png"
+          alt="Guadeloupe"
+          class="hero-map"
+        >
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Mot de passe"
-    >
-
-    <label class="check">
-
-      <input
-        type="checkbox"
-        id="rgpd"
-      >
-
-      J’accepte la politique de confidentialité.
-
-    </label>
-
-    <button
-      class="btn btn-primary full"
-      id="emailLogin"
-    >
-      Se connecter
-    </button>
-
-    <button
-      class="btn btn-outline full"
-      id="emailSignup"
-    >
-      Créer un compte
-    </button>
-
-    <p id="authMessage"></p>
-
-    <div class="auth-footer-links">
-
-      <a href="index.html">
-        ← Retour accueil
-      </a>
-
-      <a href="privacy.html">
-        Politique de confidentialité
-      </a>
+      </div>
 
     </div>
 
-  </main>
+  </div>
 
 </body>
+
 </html>
