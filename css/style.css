@@ -1402,28 +1402,28 @@ hr{
 }
 
 .right-overlay h2{
-  font-size:58px;
-  line-height:1.08;
+  font-size:44px;
+  line-height:1.12;
   color:#0f1533;
   margin:0;
-  max-width:760px;
+  max-width:700px;
   font-weight:900;
 }
 
 .right-overlay p{
-  margin-top:26px;
-  max-width:650px;
-  font-size:22px;
-  line-height:1.7;
+  margin-top:18px;
+  max-width:620px;
+  font-size:20px;
+  line-height:1.6;
   color:#334155;
 }
 
 .hero-map{
   width:100%;
-  max-width:480px;
+  max-width:720px;
   height:auto;
   object-fit:contain;
-  margin-top:34px;
+  margin-top:30px;
 }
 
 /* MOBILE */
