@@ -1392,10 +1392,11 @@ hr{
   height:100%;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;
   align-items:center;
   text-align:center;
   padding:50px;
+  padding-top:60px;
 }
 
 .right-overlay h2{
