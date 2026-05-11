@@ -1239,13 +1239,13 @@ hr{
 }
 
 .login-logo{
-  width:110px;
-  margin-bottom:30px;
+  width:72px;
+  margin-bottom:18px;
 }
 
 .login-card h1{
-  font-size:38px;
-  margin:0;
+  font-size:30px;
+  margin:0 0 10px;
   color:#101935;
   font-weight:900;
 }
