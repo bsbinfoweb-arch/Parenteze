@@ -1222,7 +1222,7 @@ hr{
 .login-layout{
   min-height:100vh;
   display:grid;
-  grid-template-columns:460px 1fr;
+  grid-template-columns:42% 58%;
 }
 
 .login-left{
@@ -1230,23 +1230,21 @@ hr{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:40px 50px;
-  position:relative;
-  z-index:2;
+  padding:40px 70px;
 }
 
 .login-card{
   width:100%;
-  max-width:390px;
+  max-width:450px;
 }
 
 .login-logo{
-  width:150px;
-  margin-bottom:22px;
+  width:110px;
+  margin-bottom:30px;
 }
 
 .login-card h1{
-  font-size:42px;
+  font-size:54px;
   margin:0;
   color:#101935;
   font-weight:900;
