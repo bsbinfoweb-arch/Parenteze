@@ -380,12 +380,6 @@
 </footer>
 
 <script>
-
-const supabaseClient = supabase.createClient(
-  window.APP_CONFIG.SUPABASE_URL,
-  window.APP_CONFIG.SUPABASE_ANON_KEY
-);
-
 async function redirectPostAd(e){
 
   e.preventDefault();
@@ -395,15 +389,10 @@ async function redirectPostAd(e){
   } = await supabaseClient.auth.getSession();
 
   if(session){
-
     window.location.href = "post.html";
-
   }else{
-
     window.location.href = "login.html";
-
   }
-
 }
 
 document
@@ -413,7 +402,6 @@ document
 document
   .getElementById("footerPostBtn")
   .addEventListener("click", redirectPostAd);
-
 </script>
 
 </body>
