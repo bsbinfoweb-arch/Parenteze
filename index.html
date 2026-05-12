@@ -232,5 +232,42 @@ document
 });
 
 </script>
+   <script>
+
+const supabaseClient = supabase.createClient(
+  window.APP_CONFIG.SUPABASE_URL,
+  window.APP_CONFIG.SUPABASE_ANON_KEY
+);
+
+async function redirectPostAd(e){
+
+  e.preventDefault();
+
+  const {
+    data:{ session }
+  } = await supabaseClient.auth.getSession();
+
+  if(session){
+
+    window.location.href = "post.html";
+
+  }else{
+
+    window.location.href = "login.html";
+
+  }
+
+}
+
+document
+  .getElementById("postAdBtn")
+  .addEventListener("click", redirectPostAd);
+
+document
+  .getElementById("footerPostBtn")
+  .addEventListener("click", redirectPostAd);
+
+</script>
 </body>
+   
 </html>
