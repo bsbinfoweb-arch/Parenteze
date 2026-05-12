@@ -1,120 +1,223 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parenteze - Parents d'élèves de Guadeloupe</title>
-  <link rel="stylesheet" href="css/style.css" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Parenteze - Parents d'élèves de Guadeloupe
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  />
+
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
   <script src="js/config.js"></script>
+
   <script defer src="js/app.js"></script>
+
 </head>
+
 <body>
+
 <header class="header">
-<div class="brand">
 
-  <div class="logo">
-    <img src="assets/logo-parenteze.png" alt="Parenteze">
+  <div class="brand">
 
-    <div class="logo-text">
-      <h1>Parenteze<span> 971</span></h1>
-      <p>La plateforme des parents d’élèves de Guadeloupe</p>
+    <div class="logo">
+
+      <img
+        src="assets/logo-parenteze.png"
+        alt="Parenteze"
+      >
+
+      <div class="logo-text">
+
+        <h1>
+          Parenteze<span> 971</span>
+        </h1>
+
+        <p>
+          La plateforme des parents d’élèves de Guadeloupe
+        </p>
+
+      </div>
+
     </div>
+
   </div>
 
-</div>
-  </div>
   <nav>
-    <a class="active" href="index.html">Accueil</a>
-    <a href="#annonces">Annonces</a>
-    <a href="#etablissements">Établissements</a>
-    <a href="#categories">Catégories</a>
-    <a href="#how">Comment ça marche ?</a>
+
+    <a
+      class="active"
+      href="index.html"
+    >
+      Accueil
+    </a>
+
+    <a href="#annonces">
+      Annonces
+    </a>
+
+    <a href="#etablissements">
+      Établissements
+    </a>
+
+    <a href="#categories">
+      Catégories
+    </a>
+
+    <a href="#how">
+      Comment ça marche ?
+    </a>
+
   </nav>
- <div class="actions" id="headerActions">
 
-  <a class="btn btn-outline" href="login.html">
-    👤 Se connecter
-  </a>
-
-  <a
-    href="#"
-    class="btn btn-primary"
-    id="postAdBtn"
+  <div
+    class="actions"
+    id="headerActions"
   >
-    ⊕ Déposer une annonce
-  </a>
 
-</div>
+    <a
+      class="btn btn-outline"
+      href="login.html"
+    >
+      👤 Se connecter
+    </a>
+
+    <a
+      href="#"
+      class="btn btn-primary"
+      id="postAdBtn"
+    >
+      ⊕ Déposer une annonce
+    </a>
+
+  </div>
+
 </header>
 
 <section class="hero">
+
   <div class="hero-text">
-    <h1>La plateforme<br>des parents d’élèves<br>de <span>Guadeloupe</span></h1>
-    <p>Donnez une seconde vie aux articles scolaires de vos enfants, simplement entre parents..</p>
+
+    <h1>
+      La plateforme<br>
+      des parents d’élèves<br>
+      de <span>Guadeloupe</span>
+    </h1>
+
+    <p>
+      Donnez une seconde vie aux articles scolaires de vos enfants, simplement entre parents.
+    </p>
+
     <div class="badges">
-      <div>🛡️ <strong>Communauté</strong><br><small>100% locale</small></div>
-      <div>🔁 <strong>Économique</strong><br><small>et solidaire</small></div>
-      <div>🔒 <strong>Sécurisé</strong><br><small>et modéré</small></div>
+
+      <div>
+        🛡️
+        <strong>Communauté</strong>
+        <br>
+        <small>100% locale</small>
+      </div>
+
+      <div>
+        🔁
+        <strong>Économique</strong>
+        <br>
+        <small>et solidaire</small>
+      </div>
+
+      <div>
+        🔒
+        <strong>Sécurisé</strong>
+        <br>
+        <small>et modéré</small>
+      </div>
+
     </div>
+
   </div>
-<div class="hero-visual">
-  <img src="assets/hero-parent.png" class="hero-image" alt="Parents">
-</div>
-    <span class="doodle d1">📖</span>
-    <span class="doodle d2">🎒</span>
-    <span class="doodle d3">🧮</span>
-    <span class="doodle d4">⭐</span>
+
+  <div class="hero-visual">
+
+    <img
+      src="assets/hero-parent.png"
+      class="hero-image"
+      alt="Parents"
+    >
+
   </div>
+
+  <span class="doodle d1">📖</span>
+  <span class="doodle d2">🎒</span>
+  <span class="doodle d3">🧮</span>
+  <span class="doodle d4">⭐</span>
+
 </section>
 
 <section class="search-box">
-<input
-  type="text"
-  placeholder="Rechercher un article..."
+
+  <input
+    type="text"
+    placeholder="Rechercher un article..."
+  >
+
+  <select id="filterType">
+
+    <option value="">
+      Tous les types
+    </option>
+
+    <option value="sell">
+      💰 À vendre
+    </option>
+
+    <option value="donate">
+      🎁 À donner
+    </option>
+
+    <option value="search">
+      🔎 Je recherche
+    </option>
+
+  </select>
+
+  <select id="filterCommune">
+
+    <option value="">
+      Toutes les communes
+    </option>
+
+  </select>
+
+  <select id="filterEtablissement">
+
+    <option value="">
+      Tous les établissements
+    </option>
+
+  </select>
+
+  <button class="btn btn-primary">
+    Rechercher
+  </button>
+
+</section>
+
+<section
+  id="categories"
+  class="section"
 >
-
-<select id="filterType">
-
-  <option value="">
-    Tous les types
-  </option>
-
-  <option value="sell">
-    💰 À vendre
-  </option>
-
-  <option value="donate">
-    🎁 À donner
-  </option>
-
-  <option value="search">
-    🔎 Je recherche
-  </option>
-
-</select>
-
-<select id="filterCommune">
-
-  <option value="">
-    Toutes les communes
-  </option>
-
-</select>
-
-<select id="filterEtablissement">
-
-  <option value="">
-    Tous les établissements
-  </option>
-
-</select>
-
-<button class="btn btn-primary">
-  Rechercher
-</button>
-  </section>
- <section id="categories" class="section">
 
   <h2>
     Parcourez par catégorie
@@ -158,81 +261,125 @@
 
 </section>
 
-<section id="how" class="section how">
-  <h2>Comment ça marche ?</h2>
+<section
+  id="how"
+  class="section how"
+>
+
+  <h2>
+    Comment ça marche ?
+  </h2>
+
   <div class="underline"></div>
+
   <div class="steps">
-    <div class="step"><div class="icon">👤</div><strong>1 Créez votre compte</strong><p>Inscription rapide pour rejoindre la communauté.</p></div>
-    <div class="step"><div class="icon">📝</div><strong>2 Déposez votre annonce</strong><p>Vendez, donnez ou recherchez en quelques clics.</p></div>
-    <div class="step"><div class="icon">🔍</div><strong>3 Trouvez ce qu’il vous faut</strong><p>Filtrez par établissement, catégorie ou commune.</p></div>
-    <div class="step"><div class="icon">💬</div><strong>4 Échangez en sécurité</strong><p>Contactez les parents via la messagerie interne.</p></div>
+
+    <div class="step">
+      <div class="icon">👤</div>
+      <strong>1 Créez votre compte</strong>
+      <p>Inscription rapide pour rejoindre la communauté.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon">📝</div>
+      <strong>2 Déposez votre annonce</strong>
+      <p>Vendez, donnez ou recherchez en quelques clics.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon">🔍</div>
+      <strong>3 Trouvez ce qu’il vous faut</strong>
+      <p>Filtrez par établissement, catégorie ou commune.</p>
+    </div>
+
+    <div class="step">
+      <div class="icon">💬</div>
+      <strong>4 Échangez en sécurité</strong>
+      <p>Contactez les parents via la messagerie interne.</p>
+    </div>
+
   </div>
+
 </section>
 
-<section id="annonces" class="section">
-  <h2>Annonces récentes</h2>
+<section
+  id="annonces"
+  class="section"
+>
+
+  <h2>
+    Annonces récentes
+  </h2>
+
   <div class="underline"></div>
-  <div class="ads-grid" id="adsGrid"></div>
-  <div class="center"><a class="btn btn-outline" href="#annonces">Voir toutes les annonces</a></div>
+
+  <div
+    class="ads-grid"
+    id="adsGrid"
+  ></div>
+
+  <div class="center">
+
+    <a
+      class="btn btn-outline"
+      href="#annonces"
+    >
+      Voir toutes les annonces
+    </a>
+
+  </div>
+
 </section>
 
 <footer class="footer">
 
   <div>
+
     <h2>
       Ensemble, faisons de la rentrée<br>
       une réussite pour nos enfants !
     </h2>
 
     <div class="footer-links">
-      <a href="privacy.html">Politique de confidentialité (RGPD)</a>
-      <a href="#">Mentions légales</a>
-      <a href="#">Contact</a>
+
+      <a href="privacy.html">
+        Politique de confidentialité (RGPD)
+      </a>
+
+      <a href="#">
+        Mentions légales
+      </a>
+
+      <a href="#">
+        Contact
+      </a>
+
     </div>
+
   </div>
 
   <div>
-    <a class="btn btn-light" href="#etablissements">
+
+    <a
+      class="btn btn-light"
+      href="#etablissements"
+    >
       🏫 Découvrir les établissements
- <a
-  class="btn btn-orange"
-  href="#"
-  id="footerPostBtn"
->
+    </a>
+
+    <a
+      class="btn btn-orange"
+      href="#"
+      id="footerPostBtn"
+    >
+      ⊕ Déposer une annonce
+    </a>
+
   </div>
 
 </footer>
-    <script>
 
-const supabaseClient = supabase.createClient(
-  window.APP_CONFIG.SUPABASE_URL,
-  window.APP_CONFIG.SUPABASE_ANON_KEY
-);
-
-document
-  .getElementById("postAdBtn")
-  .addEventListener("click", async (e) => {
-
-    e.preventDefault();
-
-    const {
-      data:{ session }
-    } = await supabaseClient.auth.getSession();
-
-    if(session){
-
-      window.location.href = "post.html";
-
-    }else{
-
-      window.location.href = "login.html";
-
-    }
-
-});
-
-</script>
-   <script>
+<script>
 
 const supabaseClient = supabase.createClient(
   window.APP_CONFIG.SUPABASE_URL,
@@ -268,6 +415,6 @@ document
   .addEventListener("click", redirectPostAd);
 
 </script>
+
 </body>
-   
 </html>
