@@ -435,53 +435,173 @@ async function loadEtablissementsSelect(){
 loadEtablissementsSelect();
 
 /* =========================
-   BOUTON RECHERCHE
+   FILTRE INTELLIGENT
 ========================= */
+
+let markers = [];
 
 document
   .getElementById("searchBtn")
 
   .addEventListener(
     "click",
-    ()=>{
+
+    async ()=>{
+
+      /* =========================
+         RESET MARKERS
+      ========================= */
+
+      markers.forEach((marker)=>{
+
+        map.removeLayer(marker);
+
+      });
+
+      markers = [];
+
+      /* =========================
+         RECUPERATION FILTRES
+      ========================= */
 
       const commune =
         communeSelect.selectedOptions[0];
 
-      const etablissement =
-        etablissementSelect.selectedOptions[0];
+      const type =
+        document
+          .getElementById("typeSelect")
+          .value;
 
-      if(etablissement.dataset.lat){
+      const etablissementId =
+        etablissementSelect.value;
 
-        map.flyTo(
+      /* =========================
+         REQUETE SUPABASE
+      ========================= */
 
-          [
-            etablissement.dataset.lat,
-            etablissement.dataset.lng
-          ],
+      let query =
 
-          16,
+        supabaseClient
 
-          {
-            duration:1.5
-          }
+          .from("etablissements")
 
-        );
+          .select("*");
 
+      /* =========================
+         FILTRE COMMUNE
+      ========================= */
+
+      if(
+        commune &&
+        commune.textContent !==
+        "Toutes les communes"
+      ){
+
+        query =
+          query.eq(
+            "commune",
+            commune.textContent
+          );
+
+      }
+
+      /* =========================
+         FILTRE TYPE
+      ========================= */
+
+      if(type){
+
+        query =
+          query.eq(
+            "type",
+            type
+          );
+
+      }
+
+      /* =========================
+         FILTRE ETABLISSEMENT
+      ========================= */
+
+      if(etablissementId){
+
+        query =
+          query.eq(
+            "id",
+            etablissementId
+          );
+
+      }
+
+      /* =========================
+         EXECUTION
+      ========================= */
+
+      const {
+        data,
+        error
+      } = await query;
+
+      if(error){
+
+        console.error(error);
         return;
 
       }
 
-      if(commune.dataset.lat){
+      /* =========================
+         AFFICHAGE MARKERS
+      ========================= */
+
+      data.forEach((etablissement)=>{
+
+        const marker =
+
+          L.marker([
+
+            etablissement.latitude,
+            etablissement.longitude
+
+          ])
+
+          .addTo(map)
+
+          .bindPopup(`
+
+            <strong>
+              ${etablissement.name}
+            </strong>
+
+            <br>
+
+            ${etablissement.type}
+
+            <br>
+
+            📍 ${etablissement.commune}
+
+          `);
+
+        markers.push(marker);
+
+      });
+
+      /* =========================
+         ZOOM AUTOMATIQUE
+      ========================= */
+
+      if(data.length > 0){
+
+        const first = data[0];
 
         map.flyTo(
 
           [
-            commune.dataset.lat,
-            commune.dataset.lng
+            first.latitude,
+            first.longitude
           ],
 
-          commune.dataset.zoom,
+          etablissementId ? 16 : 12,
 
           {
             duration:1.5
@@ -492,58 +612,6 @@ document
       }
 
 });
-
-/* =========================
-   STATS LIVE
-========================= */
-
-async function loadStats(){
-
-  const annonces =
-    await supabaseClient
-      .from("annonces")
-      .select("*",{count:"exact",head:true});
-
-  const etablissements =
-    await supabaseClient
-      .from("etablissements")
-      .select("*",{count:"exact",head:true});
-
-  const parents =
-    await supabaseClient
-      .from("profiles")
-      .select("*",{count:"exact",head:true});
-
-  const dons =
-    await supabaseClient
-      .from("annonces")
-      .select("*",{count:"exact",head:true})
-      .eq("type","donate");
-
-  document
-    .getElementById("annoncesCount")
-    .textContent =
-      annonces.count || 0;
-
-  document
-    .getElementById("etablissementsCount")
-    .textContent =
-      etablissements.count || 0;
-
-  document
-    .getElementById("parentsCount")
-    .textContent =
-      parents.count || 0;
-
-  document
-    .getElementById("donsCount")
-    .textContent =
-      dons.count || 0;
-
-}
-
-loadStats();
-
 </script>
 
 </body>
