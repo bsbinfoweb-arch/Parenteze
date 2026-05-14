@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Connexion - Parenteze
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  />
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <script src="js/config.js"></script>
+
+  <script defer src="js/auth.js"></script>
+
+</head>
+
+<body class="login-page">
+
+  <div class="login-layout">
+
+    <!-- LEFT -->
+
+    <div class="login-left">
+
+      <div class="login-card">
+
+        <img
+          src="assets/logo-parenteze.png"
+          alt="Parenteze"
+          class="login-logo"
+        >
+
+        <h1>
+          Content de vous revoir !
+        </h1>
+
+        <p class="login-subtitle">
+          Connectez-vous à votre compte
+        </p>
+
+        <!-- GOOGLE -->
+
+        <button
+          id="googleLogin"
+          class="google-btn"
+        >
+
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+            alt="Google"
+          >
+
+          <span>
+            Connectez-vous avec Google
+          </span>
+
+        </button>
+
+        <!-- SEPARATOR -->
+
+        <div class="separator">
+
+          <div></div>
+
+          <span>
+            ou
+          </span>
+
+          <div></div>
+
+        </div>
+
+        <p class="separator-text">
+          Ou connectez-vous avec votre e-mail
+        </p>
+
+        <!-- EMAIL -->
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Saisissez votre adresse e-mail ici"
+        >
+
+        <!-- PASSWORD -->
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Saisissez votre mot de passe"
+        >
+
+        <!-- BUTTON -->
+
+        <button
+          id="emailLogin"
+          class="signup-btn"
+        >
+          Se connecter
+        </button>
+
+        <!-- SWITCH -->
+
+        <p class="login-switch">
+
+          Vous n’avez pas de compte ?
+
+          <a
+            href="login.html"
+            class="link-btn"
+          >
+            S’inscrire
+          </a>
+
+        </p>
+
+        <p id="authMessage"></p>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="login-right">
+
+      <div class="right-overlay">
+
+        <img
+          src="assets/guadeloupe-login.png"
+          alt="Guadeloupe"
+          class="hero-map"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
