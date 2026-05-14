@@ -527,48 +527,48 @@ document
 
       }
 
-      /* MARKERS */
+     /* MARKERS */
 
-      data.forEach((etablissement)=>{
+data.forEach((etablissement)=>{
 
-        const lat =
-  Number(etablissement.latitude) +
-  ((Math.random() - 0.5) * 0.01);
+  const lat =
+    Number(etablissement.latitude) +
+    ((Math.random() - 0.5) * 0.01);
 
-const lng =
-  Number(etablissement.longitude) +
-  ((Math.random() - 0.5) * 0.01);
+  const lng =
+    Number(etablissement.longitude) +
+    ((Math.random() - 0.5) * 0.01);
 
-const marker =
+  const marker =
 
-  L.marker([
+    L.marker([
 
-    lat,
-    lng
+      lat,
+      lng
 
-  ])
+    ])
 
-  .addTo(map)
+    .addTo(map)
 
-          .bindPopup(`
+    .bindPopup(`
 
-            <strong>
-              ${etablissement.name}
-            </strong>
+      <strong>
+        ${etablissement.name}
+      </strong>
 
-            <br>
+      <br>
 
-            ${etablissement.type}
+      ${etablissement.type}
 
-            <br>
+      <br>
 
-            📍 ${etablissement.commune}
+      📍 ${etablissement.commune}
 
-          `);
+    `);
 
-        markers.push(marker);
+  markers.push(marker);
 
-      });
+});
 
       /* ZOOM */
 
