@@ -531,16 +531,24 @@ document
 
       data.forEach((etablissement)=>{
 
-        const marker =
+        const lat =
+  Number(etablissement.latitude) +
+  ((Math.random() - 0.5) * 0.01);
 
-          L.marker([
+const lng =
+  Number(etablissement.longitude) +
+  ((Math.random() - 0.5) * 0.01);
 
-            Number(etablissement.latitude),
-            Number(etablissement.longitude)
+const marker =
 
-          ])
+  L.marker([
 
-          .addTo(map)
+    lat,
+    lng
+
+  ])
+
+  .addTo(map)
 
           .bindPopup(`
 
