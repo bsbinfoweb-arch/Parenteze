@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Carte Parenteze
+</title>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet/dist/leaflet.css"
+/>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:#f5f7fb;
+}
+
+.dashboard{
+  display:grid;
+  grid-template-columns:300px 1fr 280px;
+  height:100vh;
+}
+
+.sidebar{
+  background:#fff;
+  padding:25px;
+  border-right:1px solid #e5e7eb;
+}
+
+.sidebar h2{
+  margin-top:0;
+  color:#159447;
+}
+
+.filter{
+  margin-bottom:18px;
+}
+
+.filter label{
+  display:block;
+  margin-bottom:8px;
+  font-weight:700;
+}
+
+.filter select{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #ddd;
+}
+
+#map{
+  width:100%;
+  height:100vh;
+}
+
+.stats{
+  background:#fff;
+  padding:25px;
+  border-left:1px solid #e5e7eb;
+}
+
+.stat-card{
+  background:#f7faf8;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.stat-card h3{
+  margin:0;
+  color:#159447;
+  font-size:30px;
+}
+
+.stat-card p{
+  margin:8px 0 0;
+  color:#555;
+}
+
+@media(max-width:980px){
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar,
+  .stats{
+    display:none;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- LEFT -->
+
+  <div class="sidebar">
+
+    <h2>
+      📍 Explorer
+    </h2>
+
+    <div class="filter">
+
+      <label>
+        Commune
+      </label>
+
+      <select>
+        <option>Toutes les communes</option>
+        <option>Pointe-à-Pitre</option>
+        <option>Baie-Mahault</option>
+        <option>Les Abymes</option>
+      </select>
+
+    </div>
+
+    <div class="filter">
+
+      <label>
+        Catégorie
+      </label>
+
+      <select>
+        <option>Toutes catégories</option>
+        <option>📚 Livres</option>
+        <option>👕 Uniformes</option>
+        <option>💻 Informatique</option>
+      </select>
+
+    </div>
+
+  </div>
+
+  <!-- MAP -->
+
+  <div id="map"></div>
+
+  <!-- RIGHT -->
+
+  <div class="stats">
+
+    <div class="stat-card">
+      <h3>245</h3>
+      <p>Annonces publiées</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>38</h3>
+      <p>Établissements</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>412</h3>
+      <p>Parents inscrits</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>97</h3>
+      <p>Dons réalisés</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map('map').setView([16.25,-61.55],9);
+
+L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  {
+    attribution:'© OpenStreetMap © CARTO',
+    subdomains:'abcd',
+    maxZoom:20
+  }
+).addTo(map);
+/* =========================
+   MARKERS
+========================= */
+
+const locations = [
+
+{
+  name:"Lycée Baimbridge",
+  coords:[16.241,-61.534]
+},
+
+{
+  name:"Collège Front de Mer",
+  coords:[16.233,-61.536]
+},
+
+{
+  name:"Lycée Faustin Fléret",
+  coords:[16.267,-61.505]
+},
+
+{
+  name:"Collège de Marie-Galante",
+  coords:[15.917,-61.269]
+},
+
+{
+  name:"École des Saintes",
+  coords:[15.869,-61.584]
+},
+
+{
+  name:"École de La Désirade",
+  coords:[16.308,-61.065]
+}
+
+];
+
+locations.forEach((loc)=>{
+
+  L.marker(loc.coords)
+    .addTo(map)
+    .bindPopup(`
+      <strong>${loc.name}</strong>
+      <br>
+      📚 12 annonces
+    `);
+
+});
+
+</script>
+
+</body>
+</html>
