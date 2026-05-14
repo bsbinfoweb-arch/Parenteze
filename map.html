@@ -41,6 +41,7 @@ body{
   background:#fff;
   padding:25px;
   border-right:1px solid #e5e7eb;
+  overflow:auto;
 }
 
 .sidebar h2{
@@ -58,11 +59,22 @@ body{
   font-weight:700;
 }
 
-.filter select{
+.filter select,
+.filter button{
   width:100%;
   padding:14px;
   border-radius:12px;
   border:1px solid #ddd;
+  margin-bottom:12px;
+  font-size:15px;
+}
+
+.filter button{
+  background:#159447;
+  color:#fff;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
 }
 
 #map{
@@ -129,93 +141,73 @@ body{
         Commune
       </label>
 
-    <select id="communeSelect">
+      <select id="communeSelect">
 
-  <option value="">
-    Toutes les communes
-  </option>
+        <option value="">
+          Toutes les communes
+        </option>
 
-  <option value="pointeapitre">
-    Pointe-à-Pitre
-  </option>
+      </select>
 
-  <option value="baiemahault">
-    Baie-Mahault
-  </option>
+      <label>
+        Type d’établissement
+      </label>
 
-  <option value="lesabymes">
-    Les Abymes
-  </option>
+      <select id="typeSelect">
 
-  <option value="mornealeau">
-    Morne-à-l’Eau
-  </option>
+        <option value="">
+          Tous les types
+        </option>
 
-</select>
+        <option value="École élémentaire publique">
+          École élémentaire publique
+        </option>
 
-    </div>
+        <option value="École privée">
+          École privée
+        </option>
 
-    <div class="filter">
+        <option value="Collège public">
+          Collège public
+        </option>
 
-<select id="communeSelect">
+        <option value="Collège privé">
+          Collège privé
+        </option>
 
-  <option value="">
-    Toutes les communes
-  </option>
+        <option value="Lycée public">
+          Lycée public
+        </option>
 
-</select>
+        <option value="Lycée privé">
+          Lycée privé
+        </option>
 
-<select id="typeSelect">
+        <option value="Lycée professionnel public">
+          Lycée professionnel public
+        </option>
 
-  <option value="">
-    Tous les types
-  </option>
+        <option value="Lycée professionnel privé">
+          Lycée professionnel privé
+        </option>
 
-  <option value="École élémentaire publique">
-    École élémentaire publique
-  </option>
+      </select>
 
-  <option value="École privée">
-    École privée
-  </option>
+      <label>
+        Établissement
+      </label>
 
-  <option value="Collège public">
-    Collège public
-  </option>
+      <select id="etablissementSelect">
 
-  <option value="Collège privé">
-    Collège privé
-  </option>
+        <option value="">
+          Tous les établissements
+        </option>
 
-  <option value="Lycée public">
-    Lycée public
-  </option>
+      </select>
 
-  <option value="Lycée privé">
-    Lycée privé
-  </option>
-
-  <option value="Lycée professionnel public">
-    Lycée professionnel public
-  </option>
-
-  <option value="Lycée professionnel privé">
-    Lycée professionnel privé
-  </option>
-
-</select>
-
-<select id="etablissementSelect">
-
-  <option value="">
-    Tous les établissements
-  </option>
-
-</select>
-
-<button id="searchBtn">
-  Rechercher
-</button>
+      <button id="searchBtn">
+        Rechercher
+      </button>
 
     </div>
 
@@ -230,22 +222,22 @@ body{
   <div class="stats">
 
     <div class="stat-card">
-      <h3>245</h3>
+      <h3 id="annoncesCount">0</h3>
       <p>Annonces publiées</p>
     </div>
 
     <div class="stat-card">
-      <h3>38</h3>
+      <h3 id="etablissementsCount">0</h3>
       <p>Établissements</p>
     </div>
 
     <div class="stat-card">
-      <h3>412</h3>
+      <h3 id="parentsCount">0</h3>
       <p>Parents inscrits</p>
     </div>
 
     <div class="stat-card">
-      <h3>97</h3>
+      <h3 id="donsCount">0</h3>
       <p>Dons réalisés</p>
     </div>
 
@@ -256,10 +248,12 @@ body{
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+
 const supabaseClient = supabase.createClient(
   window.APP_CONFIG.SUPABASE_URL,
   window.APP_CONFIG.SUPABASE_ANON_KEY
 );
+
 const map = L.map('map').setView([16.25,-61.55],9);
 
 L.tileLayer(
@@ -270,6 +264,7 @@ L.tileLayer(
     maxZoom:20
   }
 ).addTo(map);
+
 /* =========================
    ETABLISSEMENTS LIVE
 ========================= */
@@ -330,6 +325,7 @@ async function loadEtablissements(){
 }
 
 loadEtablissements();
+
 /* =========================
    COMMUNES LIVE
 ========================= */
@@ -382,46 +378,172 @@ async function loadCommunes(){
 
 loadCommunes();
 
-communeSelect.addEventListener(
-  "change",
-  (e)=>{
+/* =========================
+   ETABLISSEMENTS SELECT
+========================= */
 
-    const selected =
-      e.target.selectedOptions[0];
+const etablissementSelect =
+  document.getElementById(
+    "etablissementSelect"
+  );
 
-    const lat =
-      selected.dataset.lat;
+async function loadEtablissementsSelect(){
 
-    const lng =
-      selected.dataset.lng;
+  const { data, error } =
 
-    const zoom =
-      selected.dataset.zoom;
+    await supabaseClient
 
-    if(!lat){
+      .from("etablissements")
 
-      map.setView(
-        [16.25,-61.55],
-        9
-      );
+      .select("*")
 
-      return;
+      .order("name");
 
-    }
+  if(error){
 
-    map.flyTo(
+    console.error(error);
+    return;
 
-      [lat,lng],
+  }
 
-      zoom,
+  data.forEach((etablissement)=>{
 
-      {
-        duration:1.5
+    const option =
+      document.createElement("option");
+
+    option.value =
+      etablissement.id;
+
+    option.textContent =
+      etablissement.name;
+
+    option.dataset.lat =
+      etablissement.latitude;
+
+    option.dataset.lng =
+      etablissement.longitude;
+
+    option.dataset.zoom = 16;
+
+    etablissementSelect
+      .appendChild(option);
+
+  });
+
+}
+
+loadEtablissementsSelect();
+
+/* =========================
+   BOUTON RECHERCHE
+========================= */
+
+document
+  .getElementById("searchBtn")
+
+  .addEventListener(
+    "click",
+    ()=>{
+
+      const commune =
+        communeSelect.selectedOptions[0];
+
+      const etablissement =
+        etablissementSelect.selectedOptions[0];
+
+      if(etablissement.dataset.lat){
+
+        map.flyTo(
+
+          [
+            etablissement.dataset.lat,
+            etablissement.dataset.lng
+          ],
+
+          16,
+
+          {
+            duration:1.5
+          }
+
+        );
+
+        return;
+
       }
 
-    );
+      if(commune.dataset.lat){
+
+        map.flyTo(
+
+          [
+            commune.dataset.lat,
+            commune.dataset.lng
+          ],
+
+          commune.dataset.zoom,
+
+          {
+            duration:1.5
+          }
+
+        );
+
+      }
 
 });
+
+/* =========================
+   STATS LIVE
+========================= */
+
+async function loadStats(){
+
+  const annonces =
+    await supabaseClient
+      .from("annonces")
+      .select("*",{count:"exact",head:true});
+
+  const etablissements =
+    await supabaseClient
+      .from("etablissements")
+      .select("*",{count:"exact",head:true});
+
+  const parents =
+    await supabaseClient
+      .from("profiles")
+      .select("*",{count:"exact",head:true});
+
+  const dons =
+    await supabaseClient
+      .from("annonces")
+      .select("*",{count:"exact",head:true})
+      .eq("type","donate");
+
+  document
+    .getElementById("annoncesCount")
+    .textContent =
+      annonces.count || 0;
+
+  document
+    .getElementById("etablissementsCount")
+    .textContent =
+      etablissements.count || 0;
+
+  document
+    .getElementById("parentsCount")
+    .textContent =
+      parents.count || 0;
+
+  document
+    .getElementById("donsCount")
+    .textContent =
+      dons.count || 0;
+
+}
+
+loadStats();
+
 </script>
 
 </body>
