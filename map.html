@@ -207,7 +207,10 @@ body{
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-
+const supabaseClient = supabase.createClient(
+  window.APP_CONFIG.SUPABASE_URL,
+  window.APP_CONFIG.SUPABASE_ANON_KEY
+);
 const map = L.map('map').setView([16.25,-61.55],9);
 
 L.tileLayer(
@@ -219,54 +222,65 @@ L.tileLayer(
   }
 ).addTo(map);
 /* =========================
-   MARKERS
+   ETABLISSEMENTS LIVE
 ========================= */
 
-const locations = [
+async function loadEtablissements(){
 
-{
-  name:"Lycée Baimbridge",
-  coords:[16.241,-61.534]
-},
+  const { data, error } =
 
-{
-  name:"Collège Front de Mer",
-  coords:[16.233,-61.536]
-},
+    await supabaseClient
 
-{
-  name:"Lycée Faustin Fléret",
-  coords:[16.267,-61.505]
-},
+      .from("etablissements")
 
-{
-  name:"Collège de Marie-Galante",
-  coords:[15.917,-61.269]
-},
+      .select("*");
 
-{
-  name:"École des Saintes",
-  coords:[15.869,-61.584]
-},
+  if(error){
 
-{
-  name:"École de La Désirade",
-  coords:[16.308,-61.065]
-}
+    console.error(error);
+    return;
 
-];
+  }
 
-locations.forEach((loc)=>{
+  data.forEach((etablissement)=>{
 
-  L.marker(loc.coords)
+    if(
+      !etablissement.latitude ||
+      !etablissement.longitude
+    ){
+      return;
+    }
+
+    L.marker([
+
+      etablissement.latitude,
+      etablissement.longitude
+
+    ])
+
     .addTo(map)
+
     .bindPopup(`
-      <strong>${loc.name}</strong>
+
+      <strong>
+        ${etablissement.name}
+      </strong>
+
       <br>
-      📚 12 annonces
+
+      ${etablissement.type}
+
+      <br>
+
+      📍 ${etablissement.commune}
+
     `);
 
-});
+  });
+
+}
+
+loadEtablissements();
 /* =========================
    ZOOM COMMUNES
 ========================= */
