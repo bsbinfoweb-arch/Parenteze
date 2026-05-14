@@ -263,7 +263,58 @@ locations.forEach((loc)=>{
     `);
 
 });
+/* =========================
+   ZOOM COMMUNES
+========================= */
 
+const communeCoords = {
+
+  pointeapitre:{
+    coords:[16.241,-61.534],
+    zoom:13
+  },
+
+  baiemahault:{
+    coords:[16.267,-61.585],
+    zoom:12
+  },
+
+  lesabymes:{
+    coords:[16.270,-61.510],
+    zoom:12
+  },
+
+  mornealeau:{
+    coords:[16.333,-61.450],
+    zoom:11
+  }
+
+};
+
+document
+  .getElementById("communeSelect")
+  .addEventListener("change",(e)=>{
+
+    const value = e.target.value;
+
+    if(!value){
+
+      map.setView([16.25,-61.55],9);
+      return;
+
+    }
+
+    const commune = communeCoords[value];
+
+    map.flyTo(
+      commune.coords,
+      commune.zoom,
+      {
+        duration:1.5
+      }
+    );
+
+});
 </script>
 
 </body>
