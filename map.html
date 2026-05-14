@@ -282,54 +282,94 @@ async function loadEtablissements(){
 
 loadEtablissements();
 /* =========================
-   ZOOM COMMUNES
+   COMMUNES LIVE
 ========================= */
 
-const communeCoords = {
+const communeSelect =
+  document.getElementById("communeSelect");
 
-  pointeapitre:{
-    coords:[16.241,-61.534],
-    zoom:13
-  },
+async function loadCommunes(){
 
-  baiemahault:{
-    coords:[16.267,-61.585],
-    zoom:12
-  },
+  const { data, error } =
 
-  lesabymes:{
-    coords:[16.270,-61.510],
-    zoom:12
-  },
+    await supabaseClient
 
-  mornealeau:{
-    coords:[16.333,-61.450],
-    zoom:11
+      .from("communes")
+
+      .select("*")
+
+      .order("nom");
+
+  if(error){
+
+    console.error(error);
+    return;
+
   }
 
-};
+  data.forEach((commune)=>{
 
-document
-  .getElementById("communeSelect")
-  .addEventListener("change",(e)=>{
+    const option =
+      document.createElement("option");
 
-    const value = e.target.value;
+    option.value = commune.id;
 
-    if(!value){
+    option.textContent = commune.nom;
 
-      map.setView([16.25,-61.55],9);
+    option.dataset.lat =
+      commune.latitude;
+
+    option.dataset.lng =
+      commune.longitude;
+
+    option.dataset.zoom =
+      commune.zoom;
+
+    communeSelect.appendChild(option);
+
+  });
+
+}
+
+loadCommunes();
+
+communeSelect.addEventListener(
+  "change",
+  (e)=>{
+
+    const selected =
+      e.target.selectedOptions[0];
+
+    const lat =
+      selected.dataset.lat;
+
+    const lng =
+      selected.dataset.lng;
+
+    const zoom =
+      selected.dataset.zoom;
+
+    if(!lat){
+
+      map.setView(
+        [16.25,-61.55],
+        9
+      );
+
       return;
 
     }
 
-    const commune = communeCoords[value];
-
     map.flyTo(
-      commune.coords,
-      commune.zoom,
+
+      [lat,lng],
+
+      zoom,
+
       {
         duration:1.5
       }
+
     );
 
 });
