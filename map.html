@@ -521,36 +521,36 @@ Number(etablissementId)
 
       }
 
-      data.forEach((etablissement)=>{
+      const marker =
 
-        const marker =
+  L.marker([
 
-          L.marker([
+    Number(etablissement.latitude),
+    Number(etablissement.longitude)
 
-            etablissement.latitude,
-            etablissement.longitude
+  ])
 
-          ])
+  .addTo(map)
 
-          .addTo(map)
+  .bindPopup(`
 
-          .bindPopup(`
+    <strong>
+      ${etablissement.name}
+    </strong>
 
-            <strong>
-              ${etablissement.name}
-            </strong>
+    <br>
 
-            <br>
+    ${etablissement.type}
 
-            ${etablissement.type}
+    <br>
 
-            <br>
+    📍 ${etablissement.commune}
 
-            📍 ${etablissement.commune}
+  `)
 
-          `);
+  .openPopup();
 
-        markers.push(marker);
+markers.push(marker);
 
       });
 
