@@ -448,6 +448,8 @@ document
 
     async ()=>{
 
+      /* RESET */
+
       markers.forEach((marker)=>{
 
         map.removeLayer(marker);
@@ -455,6 +457,8 @@ document
       });
 
       markers = [];
+
+      /* FILTRES */
 
       const commune =
         communeSelect.selectedOptions[0];
@@ -466,6 +470,8 @@ document
 
       const etablissementId =
         etablissementSelect.value;
+
+      /* QUERY */
 
       let query =
 
@@ -504,7 +510,7 @@ document
         query =
           query.eq(
             "id",
-Number(etablissementId)
+            Number(etablissementId)
           );
 
       }
@@ -521,38 +527,42 @@ Number(etablissementId)
 
       }
 
-      const marker =
+      /* MARKERS */
 
-  L.marker([
+      data.forEach((etablissement)=>{
 
-    Number(etablissement.latitude),
-    Number(etablissement.longitude)
+        const marker =
 
-  ])
+          L.marker([
 
-  .addTo(map)
+            Number(etablissement.latitude),
+            Number(etablissement.longitude)
 
-  .bindPopup(`
+          ])
 
-    <strong>
-      ${etablissement.name}
-    </strong>
+          .addTo(map)
 
-    <br>
+          .bindPopup(`
 
-    ${etablissement.type}
+            <strong>
+              ${etablissement.name}
+            </strong>
 
-    <br>
+            <br>
 
-    📍 ${etablissement.commune}
+            ${etablissement.type}
 
-  `)
+            <br>
 
-  .openPopup();
+            📍 ${etablissement.commune}
 
-markers.push(marker);
+          `);
+
+        markers.push(marker);
 
       });
+
+      /* ZOOM */
 
       if(data.length > 0){
 
@@ -561,11 +571,11 @@ markers.push(marker);
         map.flyTo(
 
           [
-            first.latitude,
-            first.longitude
+            Number(first.latitude),
+            Number(first.longitude)
           ],
 
-          etablissementId ? 16 : 12,
+          etablissementId ? 17 : 13,
 
           {
             duration:1.5
