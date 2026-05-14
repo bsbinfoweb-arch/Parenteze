@@ -266,65 +266,10 @@ L.tileLayer(
 ).addTo(map);
 
 /* =========================
-   ETABLISSEMENTS LIVE
+   VARIABLES
 ========================= */
 
-async function loadEtablissements(){
-
-  const { data, error } =
-
-    await supabaseClient
-
-      .from("etablissements")
-
-      .select("*");
-
-  if(error){
-
-    console.error(error);
-    return;
-
-  }
-
-  data.forEach((etablissement)=>{
-
-    if(
-      !etablissement.latitude ||
-      !etablissement.longitude
-    ){
-      return;
-    }
-
-    L.marker([
-
-      etablissement.latitude,
-      etablissement.longitude
-
-    ])
-
-    .addTo(map)
-
-    .bindPopup(`
-
-      <strong>
-        ${etablissement.name}
-      </strong>
-
-      <br>
-
-      ${etablissement.type}
-
-      <br>
-
-      📍 ${etablissement.commune}
-
-    `);
-
-  });
-
-}
-
-loadEtablissements();
+let markers = [];
 
 /* =========================
    COMMUNES LIVE
@@ -379,7 +324,7 @@ async function loadCommunes(){
 loadCommunes();
 
 /* =========================
-   ETABLISSEMENTS SELECT
+   ETABLISSEMENTS INTELLIGENTS
 ========================= */
 
 const etablissementSelect =
@@ -389,15 +334,61 @@ const etablissementSelect =
 
 async function loadEtablissementsSelect(){
 
-  const { data, error } =
+  etablissementSelect.innerHTML = `
 
-    await supabaseClient
+    <option value="">
+      Tous les établissements
+    </option>
+
+  `;
+
+  const commune =
+    communeSelect.selectedOptions[0]
+      .textContent;
+
+  const type =
+    document
+      .getElementById("typeSelect")
+      .value;
+
+  let query =
+
+    supabaseClient
 
       .from("etablissements")
 
       .select("*")
 
       .order("name");
+
+  if(
+    commune &&
+    commune !==
+    "Toutes les communes"
+  ){
+
+    query =
+      query.eq(
+        "commune",
+        commune
+      );
+
+  }
+
+  if(type){
+
+    query =
+      query.eq(
+        "type",
+        type
+      );
+
+  }
+
+  const {
+    data,
+    error
+  } = await query;
 
   if(error){
 
@@ -423,8 +414,6 @@ async function loadEtablissementsSelect(){
     option.dataset.lng =
       etablissement.longitude;
 
-    option.dataset.zoom = 16;
-
     etablissementSelect
       .appendChild(option);
 
@@ -434,11 +423,22 @@ async function loadEtablissementsSelect(){
 
 loadEtablissementsSelect();
 
+communeSelect.addEventListener(
+  "change",
+  loadEtablissementsSelect
+);
+
+document
+  .getElementById("typeSelect")
+
+  .addEventListener(
+    "change",
+    loadEtablissementsSelect
+);
+
 /* =========================
    FILTRE INTELLIGENT
 ========================= */
-
-let markers = [];
 
 document
   .getElementById("searchBtn")
@@ -448,10 +448,6 @@ document
 
     async ()=>{
 
-      /* =========================
-         RESET MARKERS
-      ========================= */
-
       markers.forEach((marker)=>{
 
         map.removeLayer(marker);
@@ -459,10 +455,6 @@ document
       });
 
       markers = [];
-
-      /* =========================
-         RECUPERATION FILTRES
-      ========================= */
 
       const commune =
         communeSelect.selectedOptions[0];
@@ -475,10 +467,6 @@ document
       const etablissementId =
         etablissementSelect.value;
 
-      /* =========================
-         REQUETE SUPABASE
-      ========================= */
-
       let query =
 
         supabaseClient
@@ -486,10 +474,6 @@ document
           .from("etablissements")
 
           .select("*");
-
-      /* =========================
-         FILTRE COMMUNE
-      ========================= */
 
       if(
         commune &&
@@ -505,10 +489,6 @@ document
 
       }
 
-      /* =========================
-         FILTRE TYPE
-      ========================= */
-
       if(type){
 
         query =
@@ -519,10 +499,6 @@ document
 
       }
 
-      /* =========================
-         FILTRE ETABLISSEMENT
-      ========================= */
-
       if(etablissementId){
 
         query =
@@ -532,10 +508,6 @@ document
           );
 
       }
-
-      /* =========================
-         EXECUTION
-      ========================= */
 
       const {
         data,
@@ -548,10 +520,6 @@ document
         return;
 
       }
-
-      /* =========================
-         AFFICHAGE MARKERS
-      ========================= */
 
       data.forEach((etablissement)=>{
 
@@ -586,10 +554,6 @@ document
 
       });
 
-      /* =========================
-         ZOOM AUTOMATIQUE
-      ========================= */
-
       if(data.length > 0){
 
         const first = data[0];
@@ -612,6 +576,58 @@ document
       }
 
 });
+
+/* =========================
+   STATS LIVE
+========================= */
+
+async function loadStats(){
+
+  const annonces =
+    await supabaseClient
+      .from("annonces")
+      .select("*",{count:"exact",head:true});
+
+  const etablissements =
+    await supabaseClient
+      .from("etablissements")
+      .select("*",{count:"exact",head:true});
+
+  const parents =
+    await supabaseClient
+      .from("profiles")
+      .select("*",{count:"exact",head:true});
+
+  const dons =
+    await supabaseClient
+      .from("annonces")
+      .select("*",{count:"exact",head:true})
+      .eq("type","donate");
+
+  document
+    .getElementById("annoncesCount")
+    .textContent =
+      annonces.count || 0;
+
+  document
+    .getElementById("etablissementsCount")
+    .textContent =
+      etablissements.count || 0;
+
+  document
+    .getElementById("parentsCount")
+    .textContent =
+      parents.count || 0;
+
+  document
+    .getElementById("donsCount")
+    .textContent =
+      dons.count || 0;
+
+}
+
+loadStats();
+
 </script>
 
 </body>
