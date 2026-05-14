@@ -5,63 +5,144 @@ const supabaseClient = supabase.createClient(
 
 const msg = document.getElementById("authMessage");
 
-document.getElementById("googleLogin").addEventListener("click", async () => {
-  const rgpd = document.getElementById("rgpd").checked;
-  if(!rgpd){
-    msg.textContent = "Tu dois accepter la politique de confidentialité.";
-    return;
-  }
+/* =========================
+   GOOGLE LOGIN / SIGNUP
+========================= */
 
-  const { error } = await supabaseClient.auth.signInWithOAuth({
+const googleBtn = document.getElementById("googleLogin");
 
-  provider: "google",
+if(googleBtn){
 
-  options: {
+  googleBtn.addEventListener("click", async () => {
 
-    redirectTo:
-      "https://bsbinfoweb-arch.github.io/Parenteze/index.html",
+    const rgpd = document.getElementById("rgpd");
 
-    queryParams:{
-      prompt:"select_account"
+    // Si la checkbox existe (page inscription)
+    if(rgpd && !rgpd.checked){
+
+      msg.textContent =
+        "Tu dois accepter la politique de confidentialité.";
+
+      return;
     }
-  }
-});
 
-  if(error) msg.textContent = error.message;
-});
+    const { error } =
+      await supabaseClient.auth.signInWithOAuth({
 
-document.getElementById("emailSignup").addEventListener("click", async () => {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const rgpd = document.getElementById("rgpd").checked;
+        provider:"google",
 
-  if(!rgpd){
-    msg.textContent = "Tu dois accepter la politique de confidentialité.";
-    return;
-  }
+        options:{
 
-  const { data, error } = await supabaseClient.auth.signUp({ email, password });
+          redirectTo:
+            "https://bsbinfoweb-arch.github.io/Parenteze/index.html",
 
-  if(error){
-    msg.textContent = error.message;
-    return;
-  }
+          queryParams:{
+            prompt:"select_account"
+          }
 
-  msg.textContent = "Compte créé. Vérifie ton email si une confirmation est demandée.";
+        }
 
+      });
 
-});
+    if(error){
+      msg.textContent = error.message;
+    }
 
-document.getElementById("emailLogin").addEventListener("click", async () => {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+  });
 
-  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+}
 
-  if(error){
-    msg.textContent = error.message;
-    return;
-  }
+/* =========================
+   INSCRIPTION EMAIL
+========================= */
 
-  window.location.href = "index.html";
-});
+const signupBtn =
+  document.getElementById("emailSignup");
+
+if(signupBtn){
+
+  signupBtn.addEventListener("click", async () => {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const rgpd =
+      document.getElementById("rgpd").checked;
+
+    if(!rgpd){
+
+      msg.textContent =
+        "Tu dois accepter la politique de confidentialité.";
+
+      return;
+    }
+
+    const { error } =
+      await supabaseClient.auth.signUp({
+
+        email,
+        password
+
+      });
+
+    if(error){
+
+      msg.textContent = error.message;
+      return;
+
+    }
+
+    msg.textContent =
+      "Compte créé avec succès.";
+
+    setTimeout(() => {
+
+      window.location.href =
+        "connection.html";
+
+    },1500);
+
+  });
+
+}
+
+/* =========================
+   CONNEXION EMAIL
+========================= */
+
+const loginBtn =
+  document.getElementById("emailLogin");
+
+if(loginBtn){
+
+  loginBtn.addEventListener("click", async () => {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const { error } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email,
+        password
+
+      });
+
+    if(error){
+
+      msg.textContent = error.message;
+      return;
+
+    }
+
+    window.location.href = "index.html";
+
+  });
+
+}
